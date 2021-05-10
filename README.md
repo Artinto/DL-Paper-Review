@@ -7,7 +7,7 @@
 - 격주로 팀 발표
     > 1팀. 임준오(@dlawnsdh), 봉진훤(@ahn1938549) <br>
     > 2팀. 이종수(@dldnxks12), 이가영(@YoungGaLee)
-- 해당 팀이 주어진 논문에 대해 정리하여 README.md 작성
+- 해당 팀이 주어진 논문에 대해 정리하여 README.md 작성 ([예시](https://github.com/Artinto/DL-Paper-Review/tree/main/ex.Transformer-XL))
 - 작성한 README.md 혹은 간단한 PPT를 활용하여 발표 (팀 내 번갈아 가며 발표)
 
 
