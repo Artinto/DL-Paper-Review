@@ -2,7 +2,7 @@
 
 ## Abstract
 
-  - Large_scale 이미지에 대해 Convolutional Network의 depth의 영향에 대해 논한다.
+  - Large_scale 이미지를 이용한 Convolutional Network의 depth에 대한 영향을 논한다.
   
       - 해당 논문의 포인트는 복잡하고 어려운 기법들을 사용하지 않고서 단순히 16 ~ 19개의 layer를 알맞게 배치하였고, <br>이 결과로 다른 최신 모델들보다 더 뛰어난 성과를 거두었다는 것이다.
       
