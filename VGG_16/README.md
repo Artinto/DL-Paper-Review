@@ -185,4 +185,4 @@
   
 ***
 
-[Paper](https://arxiv.org/abs/1409.1556)
+[VGG Paper link](https://arxiv.org/abs/1409.1556)
