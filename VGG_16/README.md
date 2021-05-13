@@ -32,7 +32,10 @@
 
 1. Input Image
     
-    224x224 RGB 3 Channel 이미지 -> 0 ~ 1사이로 정규화 <br> 그 외 데이터 전처리 x
+    - 224x224 Fixed-Scale RGB 3 Channel 이미지 
+    - 384x384 Fixed-Scale RGB 3 Channel 이미지 
+    - [224 ,384] 범위의 Multi-Scale RGB 3 Channel 이미지 
+      - 0 ~ 1사이로 정규화 <br> 그 외 데이터 전처리 x
 
 2. Padding
 
