@@ -60,8 +60,8 @@
 
       - 우선 1x1 filter를 사용하지 않은 이유는 다음과 같다.
 
-        - 1x1 Conv를 사용하면 입력과 출력 사이즈가 같아 언뜻 보기엔 무의미해 보이지만, 그 효과는 Non-linearity를 추가하는 것이다. 즉, Receptive Field는 유지하면서 비선형성을 높일 수 있는 방법이다. <br> 하지만 이 filter를 사용하는 것은 큰 효과를 보지 못헀는데, 논문에서 논하는 이유는 다음과 같다. 
-          - 1x1 filter를 3x3 filter와 섞어서 쓴 모델이 3x3 filter 만을 사용한 모델보다 성능이 낮은 이유는 단순히 Receptive field를 유지한채 비선형성을 늘리는 것보다 , <br> Receptive field가 변화하며 Spartial Context를 포착하도록 학습시키는 것이 더 중요하다는 것.
+        - 1x1 Conv를 사용하면 입력과 출력 사이즈가 같아 언뜻 보기엔 무의미해 보이지만, 그 효과는 Non-linearity를 추가하는 것이다. 즉, Receptive Field는 유지하면서 비선형성을 높일 수 있는 방법이다. <br> 하지만 이 filter를 사용하는 것은 큰 효과를 보지 못하였는데, 논문에서 논하는 이유는 다음과 같다. 
+          - 1x1 filter를 3x3 filter와 섞어서 쓴 모델이 3x3 filter 만을 사용한 모델보다 성능이 낮은 이유는 단순히 Receptive field를 유지한채 비선형성을 늘리는 것보다 , Receptive field가 변화하며 Spartial Context를 포착하도록 학습시키는 것이 더 중요하다는 것.
 
              + Receptive Field : 얼마나 많은 문맥 정보를 사용하는 가로 이해하면 될 것 같다.
              + 1x1 filter는 이후에 연산량을 줄이는 데에도 사용되었다. -- Bottle Neck in Inception Net
