@@ -40,7 +40,7 @@
     - 
 3. Pooling
 
-  2x2 Max Pooling with Stride 2
+    2x2 Max Pooling with Stride 2
   
   - 연산량을 줄이고 Key feature만을 걸러내기 위한 layer이며, Conv layer에서 spartial 정보를 유지하고 있기 때문에 <br> Max pooling 결과로 얻어지는 결과 또한 공간 정보를 더 많이 가지고 있을 가능성이 높다.
 
@@ -50,12 +50,10 @@
   
     1x1 filter, 5x5 filter , 7x7 filter 를 사용하지 않은 이유는 정리하자면 다음과 같다.
     
-    - 우선 5x5, 7x7 filter 를 1번 사용한 것과 3x3 filter를 3번 사용한 결과는 동일하다. 즉 , Output Size가 동일하다. <br> 하지만 filter를 3개를 쓰는 것이 1개를 쓰는 것을 택한 이유는 다음과 같다.
-    
-   *1. Non-Linearity를 더 많이 반영할 수 있다.*
-   *2. 연산에 필요한 Parameter 수가 더 적다.*
-   
-    3x(3x3xCxC) vs. 7x7xCxC for C channels per layer (3x3xC+3x3xC+3x3xC < 7x7xC)
+    - 우선 5x5, 7x7 filter 를 1번 사용한 것과 3x3 filter를 3번 사용한 결과는 동일하다. <br> 즉 , Output Size가 동일하다. <br> 하지만 filter를 3개를 쓰는 것이 1개를 쓰는 것을 택한 이유는 다음과 같다.
+     
+    1. Non-Linearity를 더 많이 반영할 수 있다.<br>2. 연산에 필요한 Parameter 수가 더 적다.
+    ( 3x(3x3xCxC) vs. 7x7xCxC for C channels per layer (3x3xC+3x3xC+3x3xC < 7x7xC) )
       
 
 5. FC Layer
