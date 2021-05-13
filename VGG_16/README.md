@@ -63,8 +63,12 @@
              + Receptive Field : 얼마나 많은 문맥 정보를 사용하는 가로 이해하면 될 것 같다.
              + 1x1 filter는 이후에 연산량을 줄이는 데에도 사용되었다. -- Bottle Neck in Inception Net
 
-
-      - 5x5, 7x7 filter 를 1번 사용한 것과 3x3 filter를 3번 사용한 결과는 동일하다. <br> 즉 , Output Size가 동일하다. <br> 하지만 filter를 3개를 쓰는 것이 1개를 쓰는 것을 택한 이유는 다음과 같다.
+  
+        - 3x3 filter 를 쓴 모델을 5x5 filter 로 바꾸면 Error rate 7% 상승
+        
+          -  Large Scale 이미지에 있어서 작은 Receptive Field를 갖는게 더 좋다.
+      
+      - 7x7 filter 를 1번 사용한 것과 3x3 filter를 3번 사용한 결과는 동일하다. <br> 즉 , Output Size가 동일하다. <br> 하지만 filter를 3개를 쓰는 것이 1개를 쓰는 것을 택한 이유는 다음과 같다.
 
         - Non-Linearity를 더 많이 반영할 수 있다.
         - 연산에 필요한 Parameter 수가 더 적다.
@@ -112,6 +116,10 @@
 
 #### Train
 
+  - 1000개의 Class를 가진 ILSVRC 2012 Dataset 사용
+  
+  - Training / Validation / Test Set
+
   - Mini - Batch (256) , Learning_rate = 0.01 , Gradient Descent + Momentum 0.9 로 맞추어 Train한다.
   
       - Learning_rate은 정확도 상승이 없을 때, 1/10으로 감소시킨다. 
@@ -145,12 +153,34 @@
             
             ex) [224 , 384] 범위에서 Scale =  -> 300 x 300 or 318 x 318 , ... 
           
+              - Object 들은 실제로 모두 크기가 다르기 때문에 이 방법이 분명 이점이 있다. 
+              - 빠르게 학습하기 위해 1번 Method의 Weight로 초기화시켜 훈련을 진행한다.
+          
       - 이 결과를 확인하기 위해 CNN 모델을 FCN 모델로 바꾸어 Test 를 진행한다.
 
 
-    
-  
-
 #### Test
 
+  - Output : a Class score map of channels equal to the number of classes.
+    
+    - FCN을 사용하므로, 각 Class 개수와 같은 수의 Score map을 출력으로 낸다.
+    - 가장 높은 Score를 갖는 Class가 예측 이미지이다.
+
+      - Test에서 FCN을 사용하는 이유 
+        
+        - 일반적인 CNN 알고리즘은 FC layer에서 Spartial 정보를 잃게 된다.<br>반면에 FCN은 물체의 공간 정보 또한 유지하며 학습한다. Segmentation에서 사용하는 이유. 
+        - 물체 크기 변화에 Robust 해진다.
+        
+
+      - FCN을 사용하므로, 입력 이미지의 Size를 신경쓸 필요가 없다.
+        - FCN의 출력은 입력 이미지에 대한 비율로 나타난다.
+          - Ex) N x N -> (N/10) x (N/10)
+  - 모델의 성능은 2가지 방법으로 측정
+  
+    - 1 Top / 5 Top
+    
+      1. 1 Top : 잘 못 예측된 이미지의 비율
+      2. 5 Top : 예측 이미지가 상위 5개의 카테고리 밖에 있을 때의 비율 
+
+  
 
