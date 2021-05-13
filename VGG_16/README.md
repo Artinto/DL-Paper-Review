@@ -180,10 +180,12 @@
         - FCN의 출력은 입력 이미지에 대한 비율로 나타난다.
           - Ex) N x N -> (N/10) x (N/10)
 
-       -  Fixed-Scale Test
-          ![sdfsadfsadf](https://user-images.githubusercontent.com/59076451/118116126-d9278400-b424-11eb-8936-449c25f57bed.PNG)
-        - Multi-Scale Test
-          ![dfgdffg](https://user-images.githubusercontent.com/59076451/118116379-2d326880-b425-11eb-88b4-e9e146143bd0.PNG)
+       
+      - Fixed-Scale Test
+      ![sdfsadfsadf](https://user-images.githubusercontent.com/59076451/118116126-d9278400-b424-11eb-8936-449c25f57bed.PNG)
+      
+      - Multi-Scale Test
+      ![dfgdffg](https://user-images.githubusercontent.com/59076451/118116379-2d326880-b425-11eb-88b4-e9e146143bd0.PNG)
 
   - 모델의 성능은 2가지 방법으로 측정
   
