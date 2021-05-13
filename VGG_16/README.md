@@ -15,7 +15,7 @@
 
 ### Model Architecture Experiments
   
-![asda](https://user-images.githubusercontent.com/59076451/118099344-0ddd1080-b410-11eb-85b6-4bebd938c3bd.PNG)
+    ![asda](https://user-images.githubusercontent.com/59076451/118099344-0ddd1080-b410-11eb-85b6-4bebd938c3bd.PNG)
   
  
   
