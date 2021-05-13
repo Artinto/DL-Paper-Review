@@ -172,12 +172,19 @@
       - Test에서 FCN을 사용하는 이유 
         
         - 일반적인 CNN 알고리즘은 FC layer에서 Spartial 정보를 잃게 된다.<br>반면에 FCN은 물체의 공간 정보 또한 유지하며 학습한다. Segmentation에서 사용하는 이유. 
+
         - 물체 크기 변화에 Robust 해진다.
         
 
       - FCN을 사용하므로, 입력 이미지의 Size를 신경쓸 필요가 없다.
         - FCN의 출력은 입력 이미지에 대한 비율로 나타난다.
           - Ex) N x N -> (N/10) x (N/10)
+
+       -  Fixed-Scale Test
+          ![sdfsadfsadf](https://user-images.githubusercontent.com/59076451/118116126-d9278400-b424-11eb-8936-449c25f57bed.PNG)
+        - Multi-Scale Test
+          ![dfgdffg](https://user-images.githubusercontent.com/59076451/118116379-2d326880-b425-11eb-88b4-e9e146143bd0.PNG)
+
   - 모델의 성능은 2가지 방법으로 측정
   
     - 1 Top / 5 Top
@@ -185,6 +192,9 @@
       1. 1 Top : 잘 못 예측된 이미지의 비율
       2. 5 Top : 예측 이미지가 상위 5개의 카테고리 밖에 있을 때의 비율 
 
+    ![hjgkhjgj](https://user-images.githubusercontent.com/59076451/118116407-34597680-b425-11eb-800c-0f126b31203c.PNG)
+    
+    
   
 ***
 
