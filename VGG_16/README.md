@@ -37,7 +37,7 @@
      - FCN Model을 사용하는 이유 : 물체의 공간 상의 정보에 대해 모델이 Robust하게 하기 위함이며, <br> Input Image의 크기에 제한적이지 않아 모델 구조가 더 유연해질 수 있기 떄문
 
     - Train으로 Conv Net 앞 단의 Weight를 학습하고, 이를 그대로 FCN으로 Transfer Learning을 진행 
-    - 
+    
 3. Pooling
 
     2x2 Max Pooling with Stride 2
@@ -52,8 +52,10 @@
     
     - 우선 5x5, 7x7 filter 를 1번 사용한 것과 3x3 filter를 3번 사용한 결과는 동일하다. <br> 즉 , Output Size가 동일하다. <br> 하지만 filter를 3개를 쓰는 것이 1개를 쓰는 것을 택한 이유는 다음과 같다.
      
-    1. Non-Linearity를 더 많이 반영할 수 있다.<br>2. 연산에 필요한 Parameter 수가 더 적다.
-    ( 3x(3x3xCxC) vs. 7x7xCxC for C channels per layer (3x3xC+3x3xC+3x3xC < 7x7xC) )
+      - Non-Linearity를 더 많이 반영할 수 있다.
+      - 연산에 필요한 Parameter 수가 더 적다.
+        
+        ( 3x(3x3xCxC) vs. 7x7xCxC for C channels per layer (3x3xC+3x3xC+3x3xC < 7x7xC) )
       
 
 5. FC Layer
