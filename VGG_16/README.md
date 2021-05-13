@@ -75,18 +75,18 @@
       
 6. Activation Func
 
-  - ReLu
+    - ReLu
   
 7. Addional Skill 
 
-  - 논문에서는 동일한 Depth의 동일한 구조를 가진 모델에서 LRN, Batch Norm을 추가한 결과와 추가하지 않은 결과를 비교하며 그 영향과 효과를 논한다. 
-    - 결과만 논하자면, LRN, Batch Norm과 같은 기법은 Computing Power, 메모리 소비 감소량 등에서 그 역할을 할 수 있지만 모델의 성능에는 큰 영향이 없다고 한다.
+    - 논문에서는 동일한 Depth의 동일한 구조를 가진 모델에서 LRN, Batch Norm을 추가한 결과와 추가하지 않은 결과를 비교하며 그 영향과 효과를 논한다. 
+      - 결과만 논하자면, LRN, Batch Norm과 같은 기법은 Computing Power, 메모리 소비 감소량 등에서 그 역할을 할 수 있지만 모델의 성능에는 큰 영향이 없다고 한다.
  
-  * LRN -  Local Response Normalization : LRN으로 인해 정규화 된 layer들은 lateral inhibition의 역할을 한다
+    * LRN -  Local Response Normalization : LRN으로 인해 정규화 된 layer들은 lateral inhibition의 역할을 한다
 
-    lateral inhibition (측면 억제) : relu를 사용할 때 발생하는 문제인데, relu는 양수 값을 그대로 사용하기 때문에 만일 어떤 한 픽셀의 값이 매우 크게 되면 그 주변의 픽셀에 영향을 미치게 된다. <br>예를 들어 Average Pooling / Max Pooling 에서 큰 값을 가진 해당 pixel이 외에도 중요한 의미를 가진 pixel이 있다고 한다면 그 값들이 의미 없이 모두 사라지게 되는 경향이 있다. <br> 따라서 해당 Activation map의 같은 위치에 위치한 픽셀들 끼리 정규화를 진행해준다. 
-      -AlexNet에서 사용한다. 
-      -요즘에는 Batch Normalization을 사용한다.
+      lateral inhibition (측면 억제) : relu를 사용할 때 발생하는 문제인데, relu는 양수 값을 그대로 사용하기 때문에 만일 어떤 한 픽셀의 값이 매우 크게 되면 그 주변의 픽셀에 영향을 미치게 된다. <br>예를 들어 Average Pooling / Max Pooling 에서 큰 값을 가진 해당 pixel이 외에도 중요한 의미를 가진 pixel이 있다고 한다면 그 값들이 의미 없이 모두 사라지게 되는 경향이 있다. <br> 따라서 해당 Activation map의 같은 위치에 위치한 픽셀들 끼리 정규화를 진행해준다. 
+        -AlexNet에서 사용한다. 
+        -요즘에는 Batch Normalization을 사용한다.
 
 
   
