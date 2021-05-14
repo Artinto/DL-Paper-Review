@@ -107,5 +107,14 @@ ILSVRC - 2012
 
   ![2012](https://user-images.githubusercontent.com/69898343/118216401-65ca5480-b4ae-11eb-8410-d068e17589ff.png)
 
+> 1CNN: AlexNet
+
+> 5CNNs: 5개의 비슷한 CNN 모델들의 error의 평균
+
+> \* :pre-trained
+
+> 7CNNs: 2011로 pre-trained된 CNN 2개 + 5CNNs (총 7개 모델의 error의 평균)
+
+
     - ILSVRC-2012 15.3%의 Error로 2위와의 10.9%의 격차로 우승!
 
