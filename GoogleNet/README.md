@@ -1,6 +1,6 @@
 # GoogleNet - Going Deeper with Convolutions 'seo 16=7 2014'
 
-*논문 순서와 별개로 이해하기 편한 흐름으로 정리하였음
+*논문 순서와 별개로 이해하기 편한 흐름으로 정리하였음*
 
 ## Abstract
 
