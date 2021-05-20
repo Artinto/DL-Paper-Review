@@ -57,8 +57,59 @@ NIN 논문에서는 Conv layer가 local receptive field에서 특징을 뽑아�
     ![hhhhh](https://user-images.githubusercontent.com/59076451/118941630-e1d00b00-b98c-11eb-9014-1d304043432c.PNG)
     
       - Channel 4 Feature map -> Channel 2 Feature map 
+        ![ghjgjhjgh](https://user-images.githubusercontent.com/59076451/118941810-15129a00-b98d-11eb-9fbb-bd7845715e3f.PNG)
+
+추가적으로 GoogleNet의 말단 부분은 FC layer 대신에 Global Average Pooling을 사용한다. 이 또한 NIN 논문에서 차용한 것으로 보이는 아이디어이다.
+
+NIN에서는 모델 앞단에서 효과적으로 feature vector들을 추출하였기 때문에 이런 vector들에 대한 pooling만으로도 충분하다 라고 한다.
+FC layer는 모델 전체 free 파라미터의 90%에 달하기 떄문에 overfitting에 빠질 가능성이 매우 높고, Dropout 기법을 사용해야 한다.
+
+하지만 Average pooling 만으로 분류 classifier 역할을 할 수 있기 때문에 overfitting 문제도 피할수 있고, 연산량도 대폭 줄일 수 있다는 장점을 적극 어필한다.
+
+
+## Motivation and High Level Considerations
+
+GoogleNet의 CNN의 성능을 높이는 두 가지 방법을 유지하면서, 그 단점을 보완하기 위해서 시작되었다.
+즉, NIN의 Mirco Neural Network를 차용하여 Inception module을 구상하였고, Computing Power를 일정량으로 유지하기 위해 1x1 Conv 를 적극 사용한다.
+
+하지만 추가적인 동기가 있다.
+CNN의 성능을 높이는 두 가지 방법에 대한 가장 기본적인 해결책은 NIN의 논문에서 가져온 아이디어가 아니라 Dense하게 연결된 구조를 Sparse하게 연결된 구조로 만들어 CNN을 구성하는 것이다.
+
+  - 왼쪽이 Sparse한 layer이고 오른쪽이 Dense한 layer이다.
+  ![werwqe](https://user-images.githubusercontent.com/59076451/118943709-d4b41b80-b98e-11eb-9864-bf62815e3c2b.PNG)
+  
+하지만 현재 Dense한 구조에 대해서는 컴퓨터가 아주 좋은 성능을 보이지만 Sparse한 구조에 대해서는 그보다 훨씬 못한 성능을 보인다고 한다.
+CNN 또한 잠시 Sparse한 구조로 도전을 했지만, 바로 고개를 돌려서 다시 Dense한 구조로 돌아왔다고 첨언한다.
+
+Sparse하게 연결된 모델 구조를 제안한 논문에서는, 통계적으로 각 layer에 대해 출력과 가장 연관성이 높은 Unit들만 골라내서 연결하면 좋은 성능을 낼 수 있지 않겠냐고 제안한다.
+(Node/Cell/Unit이 선택될 확률을 더 Sparse 하게 하면서 더 깊은 신경망으로 만들고, 입력층에서 출력층으로 이어지는 layer의 Unit간의 관계를 통계적으로 잘 분석해서 입출력 간의 관계가 높은 Unit들만 골라낸다면. 그리고 그 Unit들로 이루어진 Sub Dense layer들을 만들 수 있다면 최적의 Sparse한 모델을 만들 수 있다고 주장한다.)
+
+![KakaoTalk_20210520_172102394](https://user-images.githubusercontent.com/59076451/118944873-ea761080-b98f-11eb-95dc-12b697ce02be.png)
+
+![KakaoTalk_20210520_172116599](https://user-images.githubusercontent.com/59076451/118944906-f366e200-b98f-11eb-8a48-c7de5d45ef82.png)
+
+GoogleNet은 이 Sparse한 구조에 대해서도 이 아이디어로 무언가 해보려고 했는데, 이 생각의 결과가 Inception Module이다.
+
+*Inception Module은 이런 Sparse 구조에 내놓은 해결책의 성능을 시험해보기 위해 시작되었다고 한다. 
+*실제로 하이퍼 파라미터를 조정하며 구현한 결과 꽤 좋은 성능을 내었다고 한다.
+
+즉, 서로 연관성이 있는 Unit들을 뽑아내는 것 그리고, 그 Unit들로 작은 Sub dense layer를 만드는 것에 주목했는데 이것이 논문 Abstract에서 이야기하는 multi-scale processing이다.
+
+정리하자면 Inception 구조의 주 아이디어는 기존의 CNN 구조의 각 layer에서 입출력에 대해 가장 연관성이 높은 Unit들 선택하여 최적의 Sparse Data Unit을 모아 Sub Dense한 구조를 만드는 것이다.
+
+*여기서 입력단에서 가장 가까운 layer에서는 특징이 한 Unit에 몰릴 가능성이 높은데, 이 때는 1x1 Conv 를 통해 (PCA와 같이) 가장 주요한 feature 하나만 추출하도록 하여 불필요한 연산을 줄이는 것 같다. 
+
+![fghjfgjh](https://user-images.githubusercontent.com/59076451/118947170-0975a200-b992-11eb-970f-47985bd13042.PNG)![gjhfghfghd](https://user-images.githubusercontent.com/59076451/118947188-0ed2ec80-b992-11eb-96ed-186977ee21eb.PNG)
+
+## Model architecture - 이가영님  
+
+
+
+
+
+
+        
       
-      ![ghjgjhjgh](https://user-images.githubusercontent.com/59076451/118941810-15129a00-b98d-11eb-9fbb-bd7845715e3f.PNG)
 
   
   
