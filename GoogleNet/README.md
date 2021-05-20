@@ -90,14 +90,14 @@ Sparse하게 연결된 모델 구조를 제안한 논문에서는, 통계적으�
 
 GoogleNet은 이 Sparse한 구조에 대해서도 이 아이디어로 무언가 해보려고 했는데, 이 생각의 결과가 Inception Module이다.
 
-*Inception Module은 이런 Sparse 구조에 내놓은 해결책의 성능을 시험해보기 위해 시작되었다고 한다. 
-*실제로 하이퍼 파라미터를 조정하며 구현한 결과 꽤 좋은 성능을 내었다고 한다.
+*Inception Module은 이런 Sparse 구조에 내놓은 해결책의 성능을 시험해보기 위해 시작되었다고 한다.* <br>
+*실제로 하이퍼 파라미터를 조정하며 구현한 결과 꽤 좋은 성능을 내었다고 한다*.
 
 즉, 서로 연관성이 있는 Unit들을 뽑아내는 것 그리고, 그 Unit들로 작은 Sub dense layer를 만드는 것에 주목했는데 이것이 논문 Abstract에서 이야기하는 multi-scale processing이다.
 
 정리하자면 Inception 구조의 주 아이디어는 기존의 CNN 구조의 각 layer에서 입출력에 대해 가장 연관성이 높은 Unit들 선택하여 최적의 Sparse Data Unit을 모아 Sub Dense한 구조를 만드는 것이다.
 
-*여기서 입력단에서 가장 가까운 layer에서는 특징이 한 Unit에 몰릴 가능성이 높은데, 이 때는 1x1 Conv 를 통해 (PCA와 같이) 가장 주요한 feature 하나만 추출하도록 하여 불필요한 연산을 줄이는 것 같다. 
+*여기서 입력단에서 가장 가까운 layer에서는 특징이 한 Unit에 몰릴 가능성이 높은데, 이 때는 1x1 Conv 를 통해 (PCA와 같이) 가장 주요한 feature 하나만 추출하도록 하여 불필요한 연산을 줄이는 것 같다.* 
 
 ![fghjfgjh](https://user-images.githubusercontent.com/59076451/118947170-0975a200-b992-11eb-970f-47985bd13042.PNG)
 
