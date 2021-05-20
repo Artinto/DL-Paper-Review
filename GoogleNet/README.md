@@ -54,7 +54,8 @@ NIN 논문에서는 Conv layer가 local receptive field에서 특징을 뽑아�
   
     - CCCP (Cascade Cross Channel Pooling) : Channel을 직렬러 묶어 픽셀 별로 Pooling을 수행하는 것 
       - 결과적으로 Feature map의 크기는 그대로, Channel수만 줄어들어 차원 축소의 효과를 낸다.
-    ![hhhhh](https://user-images.githubusercontent.com/59076451/118941630-e1d00b00-b98c-11eb-9014-1d304043432c.PNG)
+      
+      ![hhhhh](https://user-images.githubusercontent.com/59076451/118941630-e1d00b00-b98c-11eb-9014-1d304043432c.PNG)
     
       - Channel 4 Feature map -> Channel 2 Feature map 
         ![ghjgjhjgh](https://user-images.githubusercontent.com/59076451/118941810-15129a00-b98d-11eb-9fbb-bd7845715e3f.PNG)
@@ -99,7 +100,35 @@ GoogleNet은 이 Sparse한 구조에 대해서도 이 아이디어로 무언가 
 
 *여기서 입력단에서 가장 가까운 layer에서는 특징이 한 Unit에 몰릴 가능성이 높은데, 이 때는 1x1 Conv 를 통해 (PCA와 같이) 가장 주요한 feature 하나만 추출하도록 하여 불필요한 연산을 줄이는 것 같다. 
 
-![fghjfgjh](https://user-images.githubusercontent.com/59076451/118947170-0975a200-b992-11eb-970f-47985bd13042.PNG)![gjhfghfghd](https://user-images.githubusercontent.com/59076451/118947188-0ed2ec80-b992-11eb-96ed-186977ee21eb.PNG)
+![fghjfgjh](https://user-images.githubusercontent.com/59076451/118947170-0975a200-b992-11eb-970f-47985bd13042.PNG)
+
+위 그림으로 우리가 연관성이 높은 Unit을 고른다는 말에 대한 Insight를 얻을 수 있다.
+만약 다양한 영역의 local recpetive field를 다룬다면 우리는 Sparse하게 뿌려진 feature data에 대해서 서로 관계가 있는 Unit들을 선택할 수 있는 확률이 높아진다.
+
+따라서 Inception Module은 아래 그림과 같이 다양한 크기의 conv filter를 사용하여 Module block을 구성한다. 
+작은 patch로 이미지를 살피고, 또 큰 patch로 이미지를 살피는 직관적인 이유는 다음 예를 통해 이해한다.
+
+만일 세 번째 그림과 같이 작은 patch 만으로 그림을 살핀다면 그 patch에 포함된 선이 실제로는 원을 구성하는 일부라는 unit간의 관계성을 놓치게 된다.
+즉, 작은 patch와 더불어 큰 patch를 이용하면 각 unit의 상관관계를 유지하며 feature map을 구성할 수 있다고 이해할 수 있겠다.
+
+![gjhfghfghd](https://user-images.githubusercontent.com/59076451/118947188-0ed2ec80-b992-11eb-96ed-186977ee21eb.PNG)
+
+하지만 위의 Inception module block을 그대로 사용하면 당연히 filter를 여러개 사용하는 것이기 때문에 연산량의 문제가 발생한다.
+
+![ghfghfgsdh](https://user-images.githubusercontent.com/59076451/118947916-c5cf6800-b992-11eb-8a15-52c3c66c112c.PNG)
+
+따라서 위의 그림과 같이 1x1, 3x3, 5x5 filter를 그대로 병렬적으로 사용하되 3x3, 5x5 filter에는 직렬적으로 1x1 conv filter를 사용하여 차원을 줄여 연산량을 감소시킨다.
+
+
+![wer2qw](https://user-images.githubusercontent.com/59076451/118948432-3aa2a200-b993-11eb-9ea5-292c5457f471.PNG)
+
+추가적으로 depth가 깊어질수록 feature들은 더 추상적인 개념을 가지고 있는데, 이 feature를 잘 추출해 내기 위해 더 많은 conv filter들이 필요하다.
+따라서 깊은 layer에서는, 1x1, 3x3, 5x5 conv filter가 더 많이 사용되는 것을 볼 수 있다.
+
+(여기서 추상적이라는 개념은 feature가 많은 특징을 포함하고 있다는 뜻이다. 즉, Encoder로 예를 들면 10개 Node -> 1개 Node로 압축하는 것보다 100개 Node -> 1개 Node로 압축할 때의 feature가 더 추상적이다라고 할 수 있겠다.)
+
+추가적으로 효율적인 메모리 사용을 위해 낮운 layer에서는 기존 CNN 모델 구조를 사용하고, 높은 layer부터 Inception Module을 사용하는게 좋다고 한다. 
+
 
 ## Model architecture - 이가영님  
 
@@ -126,6 +155,14 @@ GoogleNet은 이 Sparse한 구조에 대해서도 이 아이디어로 무언가 
 
 
 
+
+[출처]
+
+https://phil-baek.tistory.com/entry/3-GoogLeNet-Going-deeper-with-convolutions-%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0
+
+http://www.hellot.net/new_hellot/magazine/magazine_read.html?code=202&sub=002&idx=45531
+
+https://m.blog.naver.com/PostView.naver?blogId=qbxlvnf11&logNo=221429203293&proxyReferer=https:%2F%2Fwww.google.com%2F
 
 
 
