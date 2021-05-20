@@ -1,4 +1,4 @@
-# GoogleNet - Going Deeper with Convolutions 'seo 16=7 2014'
+# GoogleNet - Going Deeper with Convolutions 'sep 17 2014'
 
 *논문 순서와 별개로 이해하기 편한 흐름으로 정리하였음*
 
@@ -21,8 +21,8 @@ GoogleNet은 기존의 CNN 구조를 향상시키기 위해 고안된 새로운 
   
 GoogleNet의 주요한 특징은 다음의 두 가지로 볼 수 있다.
 
-  1. hebbian Principle
-  2. Multi - scale Processing 
+  1. hebbian Principle (1x1 Conv layer)
+  2. Multi - scale Processing (Inception Module)
 
 <br><br><br>
 
@@ -39,8 +39,16 @@ NIN 논문에서는 Conv layer가 local receptive field에서 특징을 뽑아�
   ![fasdfasdfasd](https://user-images.githubusercontent.com/59076451/118940209-70dc2380-b98b-11eb-9ec7-11d05aa31ba2.PNG)
   
     - 다음 그림은 각 layer에서 Convolution을 filter가 아니라 MLP를 사용하여 각 Patch를 Swapping하며 feature를 추출하도록 한 것이다.
+    - 위와 같은 방법으로 비선형적인 특징을 더 잘 뽑아내게 되었다.
     
+    - 하지만 연산량이 늘어나는 문제는 여전히 발생한다.    
+      - NIN은 여기에 1x1 Convolution을 이용하여 연산량을 줄이는 방법을 제시한다.
 
+여기서 GoogleNet은 Micro Neural Network를 CNN에 더 알맞게 적용해보기 위해 Inception Module을 고안한다. 
+
+####즉, GoogleNet에서 눈에 띄는 특징인 Inception Module과 1x1 Conv layer를 이용한 차원축소/bottleNet 방법은 NIN에서 출발하였음을 알 수 있다.
+  
+    
   
   
 
