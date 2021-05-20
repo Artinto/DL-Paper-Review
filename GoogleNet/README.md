@@ -56,7 +56,8 @@ NIN 논문에서는 Conv layer가 local receptive field에서 특징을 뽑아�
       ![hhhhh](https://user-images.githubusercontent.com/59076451/118941630-e1d00b00-b98c-11eb-9014-1d304043432c.PNG)
     
       - Channel 4 Feature map -> Channel 2 Feature map 
-        ![ghjgjhjgh](https://user-images.githubusercontent.com/59076451/118941810-15129a00-b98d-11eb-9fbb-bd7845715e3f.PNG)
+       
+       ![ghjgjhjgh](https://user-images.githubusercontent.com/59076451/118941810-15129a00-b98d-11eb-9fbb-bd7845715e3f.PNG)
 
 추가적으로 GoogleNet의 말단 부분은 FC layer 대신에 Global Average Pooling을 사용한다. 이 또한 NIN 논문에서 차용한 것으로 보이는 아이디어이다.
 
