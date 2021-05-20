@@ -101,15 +101,17 @@ GoogleNet은 이 Sparse한 구조에 대해서도 이 아이디어로 무언가 
 
 ![fghjfgjh](https://user-images.githubusercontent.com/59076451/118947170-0975a200-b992-11eb-970f-47985bd13042.PNG)
 
-위 그림으로 우리가 연관성이 높은 Unit을 고른다는 말에 대한 Insight를 얻을 수 있다.<br>
-만약 다양한 영역의 local recpetive field를 다룬다면 우리는 Sparse하게 뿌려진 feature data에 대해서 서로 관계가 있는 Unit들을 선택할 수 있는 확률이 높아진다.
+위 그림으로 우리가 연관성이 높은 Unit을 고른다는 말에 대한 Insight를 얻을 수 있다.
 
-따라서 Inception Module은 아래 그림과 같이 다양한 크기의 conv filter를 사용하여 Module block을 구성한다. <br>
+만약 다양한 영역의 local recpetive field를 다룬다면 우리는 Sparse하게 뿌려진 feature data에 대해서 서로 관계가 있는 Unit들을 선택할 수 있는 확률이 높아진다.<br>
 작은 patch로 이미지를 살피고, 또 큰 patch로 이미지를 살피는 직관적인 이유는 다음 예를 통해 이해한다.
 
-만일 세 번째 그림과 같이 작은 patch 만으로 그림을 살핀다면 그 patch에 포함된 선이 실제로는 원을 구성하는 일부라는 unit간의 관계성을 놓치게 된다.<br>
-즉, 작은 patch와 더불어 큰 patch를 이용하면 각 unit의 상관관계를 유지하며 feature map을 구성할 수 있다고 이해할 수 있겠다.
+- 만일 위의 세 번째 그림과 같이 작은 patch 만으로 그림을 살핀다면 그 patch에 포함된 선이 실제로는 원을 구성하는 일부라는 unit간의 관계성을 놓치게 된다.
+- 이를 위해 네 번째 그림과 같이 더 큰 patch인 filter도 이용한다.
+  
+  - 즉, 작은 patch와 더불어 큰 patch를 이용하면 각 unit의 상관관계를 유지하며 feature map을 구성할 수 있다고 이해할 수 있겠다.
 
+따라서 Inception Module은 아래 그림과 같이 다양한 크기의 conv filter를 사용하여 Module block을 구성한다. 
 ![gjhfghfghd](https://user-images.githubusercontent.com/59076451/118947188-0ed2ec80-b992-11eb-96ed-186977ee21eb.PNG)
 
 하지만 위의 Inception module block을 그대로 사용하면 당연히 filter를 여러개 사용하는 것이기 때문에 연산량의 문제가 발생한다.
