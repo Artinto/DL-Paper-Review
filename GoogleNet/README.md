@@ -12,7 +12,7 @@ GoogleNet은 기존의 CNN 구조를 향상시키기 위해 고안된 새로운 
 
 당연하게도 각 방법에 대한 부작용이 존재한다.
 
-  For 1 method : Parameter수가 많아지기에 제한된 데이터에 대해서 overfitting의 위험도가 증가한다. 
+  For 1 method : Parameter수가 많아지기에 제한된 데이터에 대해서 overfitting의 위험도가 증가한다. <br>
   For 2 method : Computing power가 증가하게 된다. 
   
   ex) filter수가 늘어나게 되면 연산량은 그에 대해 Quadratic 하게 증가한다.
