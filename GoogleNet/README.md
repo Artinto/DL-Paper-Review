@@ -47,6 +47,20 @@ NIN 논문에서는 Conv layer가 local receptive field에서 특징을 뽑아�
 여기서 GoogleNet은 Micro Neural Network를 CNN에 더 알맞게 적용해보기 위해 Inception Module을 고안한다. 
 
 ##### 즉, GoogleNet에서 눈에 띄는 특징인 Inception Module과 1x1 Conv layer를 이용한 차원축소/bottleNet 방법은 NIN에서 출발하였음을 알 수 있다.
+
+* 1x1 Conv 
+
+  1x1 Conv 는 차원을 줄이기 위해 사용된다. <br> 이를 이용하여 여러 개의 feature map으로부터 비슷한 성질을 갖는 것들을 묶어낼 수 있다. (Encoder 느낌으로 이해하였다 -> 그려서 같이 설명할 것)
+  
+    - CCCP (Cascade Cross Channel Pooling) : Channel을 직렬러 묶어 픽셀 별로 Pooling을 수행하는 것 
+      - 결과적으로 Feature map의 크기는 그대로, Channel수만 줄어들어 차원 축소의 효과를 낸다.
+    ![hhhhh](https://user-images.githubusercontent.com/59076451/118941630-e1d00b00-b98c-11eb-9014-1d304043432c.PNG)
+    
+      - Channel 4 Feature map -> Channel 2 Feature map 
+      
+      ![ghjgjhjgh](https://user-images.githubusercontent.com/59076451/118941810-15129a00-b98d-11eb-9fbb-bd7845715e3f.PNG)
+
+  
   
     
   
