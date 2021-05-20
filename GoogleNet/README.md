@@ -53,7 +53,7 @@ NIN 논문에서는 Conv layer가 local receptive field에서 특징을 뽑아�
     - CCCP (Cascade Cross Channel Pooling) : Channel을 직렬러 묶어 픽셀 별로 Pooling을 수행하는 것 
       - 결과적으로 Feature map의 크기는 그대로, Channel수만 줄어들어 차원 축소의 효과를 낸다.
       
-      ![hhhhh](https://user-images.githubusercontent.com/59076451/118941630-e1d00b00-b98c-11eb-9014-1d304043432c.PNG)
+       ![12312](https://user-images.githubusercontent.com/59076451/118950056-cec13900-b994-11eb-9279-6e14f4b56024.PNG)
     
       - Channel 4 Feature map -> Channel 2 Feature map 
        
