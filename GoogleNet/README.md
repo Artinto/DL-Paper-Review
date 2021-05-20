@@ -17,7 +17,7 @@ GoogleNet은 기존의 CNN 구조를 향상시키기 위해 고안된 새로운 
   
   ex) filter수가 늘어나게 되면 연산량은 그에 대해 Quadratic 하게 증가한다.
   
-  ### GoogleNet은 여기에 따른 해결책으로 (depth를 늘리고, unit을 늘리며 연산량은 유지할 수 있는) Inception Module을 포함한 모델을 제시한다.
+  ##### GoogleNet은 여기에 따른 해결책으로 (depth를 늘리고, unit을 늘리며 연산량은 유지할 수 있는) Inception Module을 포함한 모델을 제시한다.
   
 GoogleNet의 주요한 특징은 다음의 두 가지로 볼 수 있다.
 
@@ -46,7 +46,7 @@ NIN 논문에서는 Conv layer가 local receptive field에서 특징을 뽑아�
 
 여기서 GoogleNet은 Micro Neural Network를 CNN에 더 알맞게 적용해보기 위해 Inception Module을 고안한다. 
 
-####즉, GoogleNet에서 눈에 띄는 특징인 Inception Module과 1x1 Conv layer를 이용한 차원축소/bottleNet 방법은 NIN에서 출발하였음을 알 수 있다.
+##### 즉, GoogleNet에서 눈에 띄는 특징인 Inception Module과 1x1 Conv layer를 이용한 차원축소/bottleNet 방법은 NIN에서 출발하였음을 알 수 있다.
   
     
   
