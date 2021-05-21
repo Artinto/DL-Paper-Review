@@ -1,4 +1,4 @@
-# GoogleNet - Going Deeper with Convolutions 'sep 17 2014'
+# GoogleNet - Going Deeper with Convolutions `sep 17 2014`
 
 *논문 순서와 별개로 이해하기 편한 흐름으로 정리하였음*
 
@@ -131,33 +131,69 @@ GoogleNet은 이 Sparse한 구조에 대해서도 이 아이디어로 무언가 
 추가적으로 효율적인 메모리 사용을 위해 낮운 layer에서는 기존 CNN 모델 구조를 사용하고, 높은 layer부터 Inception Module을 사용하는게 좋다고 한다. 
 
 
-## Model architecture - 이가영님  
+## Model architecture 
 
 
+![image](https://user-images.githubusercontent.com/43063980/119124018-29c55f80-ba6b-11eb-870b-9304f1c340b1.png)
+![image](https://user-images.githubusercontent.com/43063980/119124032-2cc05000-ba6b-11eb-85fd-d71fb5a4a6ed.png)
+![image](https://user-images.githubusercontent.com/43063980/119124044-3053d700-ba6b-11eb-8192-ce4d3fdcd665.png)
 
+- **구성**
 
+1. (노랑) Inception module을 9개 쌓음
+2. (빨강) Auxiliary classifier 2개 추가 
+    > 3,6번째 inception module 뒤에 (softmax) classifier를 추가함.
 
-
-        
-      
-
-  
-  
+    > 기존의 모델은 classifier가 뒷단에 하나만 존재해서 deep한 모델에서는 vanising gradient가 발생했는데 
+    > Auxiliary classifier를 중간에 하나씩 추가해줌으로써 vanishing gradient를 완화시킴.
     
+    > 다만 loss계산에서는 가중치는 0.3으로 합쳐짐.
+
+3. (민트) Average Pooling 
+
+4. 22개의 convolution layer + 5개의 pooling layer 
+
+<br>
+
+- **가장 잘 나왔던 GoogLeNet 정보** 
+![image](https://user-images.githubusercontent.com/43063980/119125605-f388df80-ba6c-11eb-90ab-1e255c23adc0.png)
+
+- patch size/stride : filter 크기, stride 값 
+- output size : convolution 거친 후 나오는 feature map의 크기 및 개수(마지막 값)
+- '#' : 개수
+  
+  > #3x3 : 3x3 conv 연산 후 생기는 feature map 수 
+  
+  > #3x3 reduce : 3x3 conv 전에 거치는 1x1 conv의 개수 
+  
+- pool proj : 3x3 mas pooling, lxl conv
+- params : 파라미터크기
+- ops : 연산크기
+  
+<br>
   
   
+  
+## Result 
+
+ILSVRC 2014 대회는 1000개의 이미지 관련 task 평가
+1.2 million images for training,50,000 for validation and 100,000 images for testing.
+the top-5 error rate 를 기준으로 함.
+
+<br>
+
+논문에는 classification, detection 부분의 결과가 나와있음.
+
+![image](https://user-images.githubusercontent.com/43063980/119127051-c6d5c780-ba6e-11eb-8cba-959a73dba225.png) 
+![image](https://user-images.githubusercontent.com/43063980/119127068-cc331200-ba6e-11eb-9275-02508ed272cb.png)
 
 
 
 
 
+**[참고]**
 
- 
-
-
-
-
-[출처]
+paper : https://arxiv.org/pdf/1409.4842.pdf
 
 https://phil-baek.tistory.com/entry/3-GoogLeNet-Going-deeper-with-convolutions-%EB%85%BC%EB%AC%B8-%EB%A6%AC%EB%B7%B0
 
@@ -165,8 +201,7 @@ http://www.hellot.net/new_hellot/magazine/magazine_read.html?code=202&sub=002&id
 
 https://m.blog.naver.com/PostView.naver?blogId=qbxlvnf11&logNo=221429203293&proxyReferer=https:%2F%2Fwww.google.com%2F
 
-
-
+https://oi.readthedocs.io/en/latest/computer_vision/cnn/googlenet.html
 
 
 
