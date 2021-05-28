@@ -79,7 +79,8 @@
 
 ### CIFAR-10의 학습
 ![graph3](https://user-images.githubusercontent.com/69898343/119973060-f3995a00-bfed-11eb-8c12-5617189876aa.png)
-과 같이 그림의 수가 32 X 32로 작기에, Layer를 줄여서 학습을 시도하였고, 
+
+과 같이 그림의 수가 32 X 32로 작기에, Layer를 [6n+2]의 공식으로 소개하며, n을 넣어가며 학습을 하였고  
 
 
 ![graph4](https://user-images.githubusercontent.com/69898343/119973324-4c68f280-bfee-11eb-8888-e07c453a410d.png)
