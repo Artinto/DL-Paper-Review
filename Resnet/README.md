@@ -77,6 +77,12 @@
 
 다음과 같은 Bottleneck 구조에서는 identity mapping이 더욱 효과적으로 Parameter를 줄이고, 연산을 줄일 수 있음을 암시한다.
 
+### CIFAR-10의 학습
+![graph3](https://user-images.githubusercontent.com/69898343/119973060-f3995a00-bfed-11eb-8c12-5617189876aa.png)
+과 같이 그림의 수가 32 X 32로 작기에, Layer를 줄여서 학습을 시도하였고, 
 
 
+![graph4](https://user-images.githubusercontent.com/69898343/119973324-4c68f280-bfee-11eb-8888-e07c453a410d.png)
+
+결과는 다음과 같다.
    
