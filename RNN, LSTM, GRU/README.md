@@ -32,6 +32,8 @@ RNN의 장기 의존성 (Long-Term Dependency) 문제를 **Cell state**를 추�
 
 
 
+
+
 ## cell state 
 
 
@@ -180,4 +182,11 @@ LSTM의 cell state와 hidden state가 GRU에서는 하나의 hidden state로 합
 <br>
 
 -> **연산속도가 느리다는 LSTM의 단점를 모듈구조를 간결하게 만듦으로서 계산을 효율적이게 만들었다.**
+
+
+
+#### 참고 
+https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=winddori2002&logNo=221992543837
+
+https://wooono.tistory.com/242
 
