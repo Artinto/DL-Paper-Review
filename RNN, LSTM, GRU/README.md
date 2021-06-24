@@ -26,8 +26,48 @@ RNN의 특정 Step에서 기본 학습 과정을 먼저 살펴보자.
 
 ![4444](https://user-images.githubusercontent.com/59076451/123301125-423b0500-d556-11eb-85e6-34c84efc5f32.png)
 
-x_t : 입력 데이터<br>h_t-1 : 이전 시점에서 넘겨준 문맥정보<br>h_t : 이전 정보와 현재 입력 데이터를 이용한 정보<br>y^_t : h_t를 통해 얻은 해당 Step에서의 Hypothesis<br>y_t : Target Value
+**x_t** : 입력 데이터<br>**h_t-1** : 이전 시점에서 넘겨준 문맥정보<br>**h_t** : 이전 정보와 현재 입력 데이터를 이용한 정보<br>**y^_t** : h_t를 통해 얻은 해당 Step에서의 Hypothesis<br>**y_t** : Target Value
 
+그리고 위 그림에서 색이 입혀진 **W**는 각각 입력데이터, 이전 문맥 정보, 출력 정보에 대한 가중치이다.
+- **Whh Wxh Wyh**
+
+#### **I Work at Google**을 예시로 들어보자.
+
+위 문장을 먼저 각 문장 요소로 분리한다. (Target Value : 대명사, 명사, 동사, 전치사)
+
+1. 먼저 입력 데이터로  **I**를 넣어주면 해당 step 이전의 정보가 없기 때문에 h_t-1은 0으로, 초기 가중치 **Whh Wxh Wyh**는 랜덤한 값으로 초기화하여 학습을 시작한다.
+2. 입력 데이터에 대해서 선형 회귀를 거쳐 tanh 연산을 수행한다.        
+3. 해당 연산 결과는 현재 Step의 출력으로도 사용되며 다음 Step으로 넘겨줄 데이터로도 사용된다.
+4. 해당 데이터는 다시 한 번 선형 회귀 거쳐 Softmax 활성함수를 통해 결과를 출력한다.
+5. 해당 결과와 Target Value를 비교하여 Loss를 계산하고 이를 줄이는 방향으로 학습한다.
+
+6. 다음으로 **Work** 데이터를 입력한다. 이 데이터는 위와 동일한 과정을 거치지만, 이전 데이터 **I**의 정보가 남아 학습에 영향을 주게 된다.
+7. 다음으로 **at** 데이터를 입력한다. 이 데이터는 **I** 정보의 영향을 받은 **Work**의 영향을 받으며 학습이 진행된다.
+
+위 1-7 번과 같은 과정으로 RNN 구조의 학습이 진행된다고 이해할 수 있다.
+
+#### 조금 더 디테일한 부분을 살펴보자
+
+입력 데이터와 출력 데이터, Target Value의 형태는 모두 Vector이다. 
+물론 방금 언급한 Target Value 역시 명사, 대명사, 전치사,.. 모두 Vector 형태로 표현되어 학습에 사용된다.
+
+
+![2222](https://user-images.githubusercontent.com/59076451/123303359-af4f9a00-d558-11eb-88ad-824c2ade1e3d.PNG)
+
+위 그림은 **Hell** 을 넣었을 때 **o**가 나오도록 학습하는 과정이다.
+각 Character 들 모두 각각 Vector 형태로 표현되고 출력 또한 Vector 형태이다.
+출력은 최종적으로 Softmax를 통해 가장 높은 값을 가진 Index와 Target Value의 Index와 비교될 것이다.
+이를 통해 Loss를 계산할 수 있는데, 우리는 이렇게 각 Step에서 발생하는 Loss를 합쳐 전체 Loss를 계산한다.
+
+여기까지의 과정이 RNN에서의 순전파 과정이다.
+역전파 과정은 당연히 다음과 같이 Chain Rule을 사용하여 사용한 모든 정보들에 대한 Gradient를 구해서 업데이트한다. 예를 들어 **T = 3**에서의 가중치는 **T : 0 ~ 2 **까지의 정보를 사용하여 얻은 결과이다. 
+
+![55555](https://user-images.githubusercontent.com/59076451/123304485-f68a5a80-d559-11eb-8c6a-131ecbc1f666.PNG)
+
+Gradient Vanishing, Gradient Exploding 문제는 바로 이 역전파 과정에서 발생한다.
+앞서 이야기한대로, 현재 T시점의 Gradient를 업데이트하기 위해 이전 정보에 대한 Gradient를 모두 계산해서 전달해야하는데 Sequence 길이가 길다면 앞쪽까지 충분히 전달하지 못하는 것이다.
+
+즉, T시점에서 발생한 오차에 대한 Gradient를 앞단의 Cell들은 사용하지 못하는 것.
 
 
 <br>
