@@ -49,18 +49,21 @@ RNN의 특정 Step에서 기본 학습 과정을 먼저 살펴보자.
 #### 조금 더 디테일한 부분을 살펴보자
 
 입력 데이터와 출력 데이터, Target Value의 형태는 모두 Vector이다. 
-물론 방금 언급한 Target Value 역시 명사, 대명사, 전치사,.. 모두 Vector 형태로 표현되어 학습에 사용된다.
+물론 방금 언급한 Target Value 역시 명사, 대명사, 전치사, 동사 모두 Vector 형태로 표현되어 학습에 사용된다.
 
 
 ![2222](https://user-images.githubusercontent.com/59076451/123303359-af4f9a00-d558-11eb-88ad-824c2ade1e3d.PNG)
 
-위 그림은 **Hell** 을 넣었을 때 **o**가 나오도록 학습하는 과정이다.
-각 Character 들 모두 각각 Vector 형태로 표현되고 출력 또한 Vector 형태이다.
-출력은 최종적으로 Softmax를 통해 가장 높은 값을 가진 Index와 Target Value의 Index와 비교될 것이다.
+위 그림은 **Hell** 을 넣었을 때 **o**가 나오도록 학습하는 과정이다.<br>
+각 Character 들 모두 각각 Vector 형태로 표현되고 출력 또한 Vector 형태이다.<br>
+출력은 최종적으로 Softmax를 통해 가장 높은 값을 가진 Index와 Target Value의 Index와 비교될 것이다.<br>
 이를 통해 Loss를 계산할 수 있는데, 우리는 이렇게 각 Step에서 발생하는 Loss를 합쳐 전체 Loss를 계산한다.
 
-여기까지의 과정이 RNN에서의 순전파 과정이다.
-역전파 과정은 당연히 다음과 같이 Chain Rule을 사용하여 사용한 모든 정보들에 대한 Gradient를 구해서 업데이트한다. 예를 들어 **T = 3**에서의 가중치는 **T : 0 ~ 2 **까지의 정보를 사용하여 얻은 결과이다. 
+여기까지의 과정이 RNN에서의 순전파 과정이다.<br>
+역전파 과정은 당연히 다음과 같이 Chain Rule을 사용하여 사용한 모든 정보들에 대한 Gradient를 구해서 업데이트한다. <br>
+예를 들어 **T = 3**에서의 가중치는 **T : 0 ~ 2**까지의 정보를 사용하여 얻은 결과이다. <br>
+따라서 해당 **T=0, T=1, T=2** 시점의 Gradient들도 이 Loss에 대해서 Update를 해주어야 한다는 것이다.
+
 
 ![55555](https://user-images.githubusercontent.com/59076451/123304485-f68a5a80-d559-11eb-8c6a-131ecbc1f666.PNG)
 
