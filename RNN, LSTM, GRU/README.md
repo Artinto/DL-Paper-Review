@@ -131,4 +131,8 @@ LSTM의 cell state와 hidden state가 GRU에서는 하나의 hidden state로 합
 
 <img src = "https://user-images.githubusercontent.com/43063980/123234349-d5a01600-d515-11eb-8071-6aceac6b2ec4.png" width="50%">
 
-- reset gate : 과거의 데이터를 리셋시키는 것을 목적으로 하는 게이트
+- reset gate(rt) : 과거의 데이터를 리셋시키는 것을 목적으로 하는 게이트
+<img src = "https://user-images.githubusercontent.com/43063980/123263212-b0ba9b80-d533-11eb-8799-84b6af4ea60d.png" width="30%">
+
+- update gate
+
