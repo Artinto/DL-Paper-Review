@@ -77,14 +77,15 @@ Gradient Vanishing, Gradient Exploding 문제는 바로 이 역전파 과정에�
 
 
 ## 2. LSTM(Long Short Term Memory)
+
 RNN은 순환구조를 통해 데이터의 연속성을 학습할 수 있게 만들었지만  
-데이터를 학습시키는 backpropagation 과정에서 **vanishing gradient 문제**가 발생했다.
+Backpropagation 과정에서 **Gradient Vanishing**이 발생한다.
 
 RNN의 장기 의존성 (Long-Term Dependency) 문제를 **Cell state**를 추가하여 해결한 모델이 **LSTM**이다.
 
 ![image](https://user-images.githubusercontent.com/43063980/123243333-e18fd600-d51d-11eb-9904-cd90450aad9e.png)
 
-- LSTM은 RNN과 마찬가지로 순환구조를 가지고 있다. 다만 순환하는 **모듈의 구조가 다르다**.  
+- LSTM은 RNN과 마찬가지로 순환구조를 가지고 있다. 다만 RNN에서 사용한 **h_t** **모듈의 구조가 다르다**.  
 
 <br>
 
@@ -92,13 +93,14 @@ RNN의 장기 의존성 (Long-Term Dependency) 문제를 **Cell state**를 추�
 
 
 
-## cell state 
+## Cell State 
 
 
 <img src = "https://user-images.githubusercontent.com/43063980/123247802-36355000-d522-11eb-88d2-f9203b6c69f3.png" width="40%">
 
-- 정보가 저장된 메모리로 학습을 거치며 update된다.
-- LSTM은 과거의 정보를 잊어버리게도 만들고, 현재의 정보를 기억하도록하는데 어떤 정보를 update시킬지는 **Gate**를 통해 결정된다.
+- LSTM Cell 구조를 살펴보면 특정 루트는 과거의 정보를 잊어버리게도 만들고, 또 다른 루트는 현재의 정보를 얼마나 사용할지를 조정할 수 있도록 한다.
+
+어떤 정보를 update시킬지는 **루트(Gate)**를 통해 결정된다.
 
 
 <br>
@@ -108,11 +110,11 @@ RNN의 장기 의존성 (Long-Term Dependency) 문제를 **Cell state**를 추�
 
 ![image](https://user-images.githubusercontent.com/43063980/123250826-7b0eb600-d525-11eb-8114-dee99dad6b7d.png)
 
-- 각각은 **forget gate**, **input gate**, **output gate**이다.
+- 각각의 그림은 **Forget gate**, **Input gate**, **Output gate**를 나타낸다.
 
-    - forget gate : 과거정보를 얼마나 잊을 것인지
-    - input gate  : 현재정보를 얼마나 기억할 것인지
-    - output gate : 다음 state로 보낼 output 결정
+    - Forget gate : 과거정보를 얼마나 잊을 것인지
+    - Input gate  : 현재정보를 얼마나 기억할 것인지
+    - Output gate : 다음 state로 보낼 output 결정
  
  - 이전 cell state는 3개의 gate를 거처 다음 cell state로 넘어간다.
  - 모든 gate는 sigmoid함수를 사용하여 cell state에 얼만큼 영향을 줄지 결정한다.
@@ -120,24 +122,22 @@ RNN의 장기 의존성 (Long-Term Dependency) 문제를 **Cell state**를 추�
        0.0X : 정보기억↑↑  
        0.9X : 정보기억↓↓
  
+ 즉, 이전 RNN에서는 단순히 이전 정보(**h_t**)와 입력 데이터(**x_t**)를 받아 학습에 사용했다면, LSTM은 이전 정보와 입력 정보를 가공해서 사용한다고 생각할 수 있겠다.
 
 <br>
 
 
 <br>
 
-
-<br>
-
-> **forget gate**
+> **Forget gate**
 <img src = "https://user-images.githubusercontent.com/43063980/123253320-536d1d00-d528-11eb-8879-b73b36636c45.png" width="30%">
 
-> **input gate**
+> **Input gate**
 <img src = "https://user-images.githubusercontent.com/43063980/123253709-b9f23b00-d528-11eb-80b9-52db0f3cdc01.png" width="30%">
 
-- 각 gate의 식은 위와 같고 이들은 아래의 수식을 통해 cell state를 update한다. 
-
-<br>
+- Forget gate와 Input gate의 식은 위와 같다.
+    - 각각 이전 데이터와 입력 데이터를 선형 회귀 한 후 Sigmoid 활성 함수를 통해 해당 결과를 얼마나 사용할 지 결정한다.
+- 이들은 아래의 수식을 통해 cell state를 update한다. 
 
 <br>
 
@@ -151,7 +151,7 @@ RNN의 장기 의존성 (Long-Term Dependency) 문제를 **Cell state**를 추�
 
 - input gate의 ~Ct를 보면 원래 RNN의 식과 동일하다. 
 - 이전의 정보(Ct-1)와 forget gate를 연산하고 이번 cell에 대한 값(~Ct)은 input gate와 계산한다.   
-- 과거정보와 현재정보가 합쳐진 cell state는 **다음 state로 넘어간다.**  
+- 과거정보와 현재정보가 조정되어 합쳐진 cell state는 **다음 state로 넘어간다.**  
 
 
 <br>
@@ -165,12 +165,15 @@ RNN의 장기 의존성 (Long-Term Dependency) 문제를 **Cell state**를 추�
 
 <br>
 
--> **RNN의 문제였던 장기의존성 문제를 cell state라는 레이어를 통해 해결했지만 다른 RNN계열보다 연산속도가 느리다는 단점이 있다.**
+**Cell State**는 일종의 컨베이어 벨트와 같은 역할을 하며 정보가 잘 흐르도록 도와준다. <br>덕분에 Sequence가 길어지더라도 Gradient가 비교적 잘 전파된다.
+
+RNN에서는 앞 단의 정보들이 긴 시간 동안 유지되지 못했던 반면, LSTM은 컨베이터 벨트와 같은 구조로 필요한 정보만 선별하여 넘겨주기 때문에 Long-term dependancy 문제가 없다고 한다.
+
+**RNN의 문제였던 장기의존성 문제를 cell state라는 레이어를 통해 해결했지만 다른 RNN계열보다 연산속도가 느리다는 단점이 있다.**
 
 <br>
 
 <br>
-
 
 
 ## 2. GRU(Gated Recurrnet Unit)
@@ -245,6 +248,7 @@ LSTM의 cell state와 hidden state가 GRU에서는 하나의 hidden state로 합
 
 #### 참고 
 https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=winddori2002&logNo=221992543837
-
 https://wooono.tistory.com/242
+https://blog.naver.com/PostView.nhn?blogId=winddori2002&logNo=221974391796
+https://ratsgo.github.io/natural%20language%20processing/2017/03/09/rnnlstm/
 
