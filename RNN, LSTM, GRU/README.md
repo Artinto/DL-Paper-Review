@@ -18,7 +18,7 @@
 <br>
 
 
-## LSTM
+## LSTM(Long Short Term Memory)
 RNN은 순환구조를 통해 데이터의 연속성을 학습할 수 있게 만들었지만  
 데이터를 학습시키는 backpropagation 과정에서 **vanishing gradient 문제**가 발생했다.
 
@@ -34,10 +34,11 @@ RNN의 장기 의존성 (Long-Term Dependency) 문제를 **Cell state**를 추�
 
 ### cell state 
 
+
 <img src = "https://user-images.githubusercontent.com/43063980/123247802-36355000-d522-11eb-88d2-f9203b6c69f3.png" width="40%">
 
 - 정보가 저장된 메모리로 학습을 거치며 update된다.
-- 어떤 정보를 update시킬지는 **Gate**를 통해 결정된다.
+- LSTM은 과거의 정보를 잊어버리게도 만들고, 현재의 정보를 기억하도록하는데 어떤 정보를 update시킬지는 **Gate**를 통해 결정된다.
 
 
 <br>
@@ -53,18 +54,81 @@ RNN의 장기 의존성 (Long-Term Dependency) 문제를 **Cell state**를 추�
     - input gate  : 현재정보를 얼마나 기억할 것인지
     - output gate : 다음 state로 보낼 output 결정
  
- - 이전 cell state는 3개의 gate를 거처 다음 cell state로 넘어간다 
- - 모든 gate는 sigmoid함수를 사용하여 cell state에 얼만큼 영향을 줄지 결정한다. 
-       - 
-    
-- 과거의 정보를 잊어버리게도 만들고, 현재의 정보를 기억하도록 update시키는데만드는데 이 Control을 **Gate**라는 
-- 이전셀에 사용되어진 정보를 합과 곱연산을 통해 정보를 저장하는 역할
+ - 이전 cell state는 3개의 gate를 거처 다음 cell state로 넘어간다.
+ - 모든 gate는 sigmoid함수를 사용하여 cell state에 얼만큼 영향을 줄지 결정한다.
+ 
+       0.0X : 정보기억↑↑  
+       0.9X : 정보기억↓↓
+ 
+
+<br>
 
 
-## GRU
+<br>
+
+
+> **forget gate**
+<img src = "https://user-images.githubusercontent.com/43063980/123253320-536d1d00-d528-11eb-8879-b73b36636c45.png" width="30%">
+
+> **input gate**
+<img src = "https://user-images.githubusercontent.com/43063980/123253709-b9f23b00-d528-11eb-80b9-52db0f3cdc01.png" width="30%">
+
+- 각 gate의 식은 위와 같고 이들은 아래의 수식을 통해 cell state를 update한다. 
+
+<br>
+
+<br>
+
+> **update** 
+
+<img src = "https://user-images.githubusercontent.com/43063980/123258539-71d61700-d52e-11eb-910f-472f192283f7.png" width="40%">
+
+<img src = "https://user-images.githubusercontent.com/43063980/123258513-68e54580-d52e-11eb-8767-7fd9a2823f6a.png" width="30%">
 
 
 
+- input gate의 ~Ct를 보면 원래 RNN의 식과 동일하다. 
+- 이전의 정보(Ct-1)와 forget gate를 연산하고 이번 cell에 대한 값(~Ct)은 input gate와 계산한다.   
+- 과거정보와 현재정보가 합쳐진 cell state는 **다음 state로 넘어간다.**  
 
-![LSTM](https://user-images.githubusercontent.com/43063980/123234314-cde07180-d515-11eb-9143-55437438fc24.png)
-![GRU](https://user-images.githubusercontent.com/43063980/123234349-d5a01600-d515-11eb-8071-6aceac6b2ec4.png)
+
+<br>
+
+> **output gate**
+<img src = "https://user-images.githubusercontent.com/43063980/123253790-d3938280-d528-11eb-8881-74813b49656f.png" width="30%">
+
+
+- 최종적으로 얻어진 cell state 값을 얼마나 hidden state로 넘겨줄지 결정하는 역할
+- cell state는 output gate를 거쳐 hidden state로 넘어간다.  
+
+<br>
+
+-> **RNN의 문제였던 장기의존성 문제를 cell state라는 레이어를 통해 해결했지만 다른 RNN계열보다 연산속도가 느리다는 단점이 있다.**
+
+<br>
+
+<br>
+
+
+
+## GRU(Gated Recurrnet Unit)
+GRU도 마찬가지로 순환구조를 가지고 있다. 이 역시 모듈의 구조가 다르다.  
+GRU는 더 간단한 구조로 이루어져 있어서 계산이 효율적이다. **(연산속도를 높였다.)**
+
+
+<br>
+
+**[LSTM과 비교]**
+- LSTM에 비해 학습속도가 빠르다.
+- 데이터가 적을 때, 좋은 성능을 보인다. (데이터가 많은 때는 LSTM의 성능이 더 좋다.)
+- reset gate, update gate 총 2개의 gate가 사용된다.
+
+
+### Gate
+LSTM의 Input Gate와 Forget Gate가 GRU에서는 하나의 Update Gate로 합쳐졌다.  
+LSTM의 cell state와 hidden state가 GRU에서는 하나의 hidden state로 합쳐졌다.
+
+
+<img src = "https://user-images.githubusercontent.com/43063980/123234349-d5a01600-d515-11eb-8071-6aceac6b2ec4.png" width="50%">
+
+- reset gate : 과거의 데이터를 리셋시키는 것을 목적으로 하는 게이트
