@@ -1,18 +1,33 @@
 # RNN, LSTM, GRU 개념 정리 및 비교
 
 
-기존의 인공 신경망은 순서나 맥락이 고려되지 않은 단순한 구조였다.  
-따라서 번역이나 주가예측과 같은 task를 해결할 수 없었다. 
+기존의 인공 신경망은 데이터의 순서나 맥락이 고려되지 않은 단순한 구조였다.  
+따라서 번역이나 주가예측과 같은 Sequence data에 대한 task를 해결할 수 없었다. 
 
-연속성을 갖는 데이터를 학습하기 위해서 hidden layer를 도입하게 되었고,  
-이를 통해 과거의 정보가 미래의 결과에 영향을 줄 수 있는 순환구조를 갖는 **순환신경망(RNN)** 이 나타났다.
+이로 인해 Sequence data를 학습하기 위해 hidden layer의 정보를 다음 단계로 넘겨주는 형태의 구조를 도입하게 되었고, 이를 통해 과거의 정보가 미래의 결과에 영향을 줄 수 있는 **순환신경망(RNN)** 이 나타났다.
 
-하지만 초기의 순환신경망은 학습을 거치며 이전의 정보를 쉽게 잃어버렸고,  
-앞단의 정보를 덜 잃어버리도록, 더 계산시간이 짧도록 발전한 것이 **LSTM**과 **GRU**이다. 
+하지만 순환신경망은 Sequence의 길이가 길어짐에 따라 문제가 발생한다.
+학습을 거치며 이전의 정보를 쉽게 잃어버리거나(Gradient Vanishing), 이전 정보에 대한 가중치가 거대해져(Gradient Exploding) 나머지 데이터들을 무의미하게 만들어버리는 등의 문제가 발생한다.  
+
+이 Gradient Vanishing, Gradient Exploding 문제를 해결하기 위한 방법으로써 앞단의 정보를 알맞게 조정해가며 사용할 수 있고, Computing면에서도 더 효율적으로 발전한 것이 **LSTM**과 **GRU**이다. 
 
 <br>
 
-## 1. RNN
+## 1. RNN (Recurrent Neural Network)
+
+![111](https://user-images.githubusercontent.com/59076451/123301068-2e8f9e80-d556-11eb-94e1-dbbd12119ac0.PNG)
+
+RNN의 기본 컨셉은 이전 정보를 다음 Step으로 넘겨주어 Context 정보를 유지하도록 하는 것이다. 
+예를 들어 "I work at google." 과 "I google at work." 는 완전히 다른 의미이며, 이러한 문맥 정보를 죽이지 않고서 학습할 수 있도록 만든 모델인 것이다.
+
+한 가지 오해할 수 있는 것은 다음 Step에서 바로 직전 Step의 정보만을 이용하는 것이 아니라 해당 Step 이전의 모든 정보를 사용한다는 것이다.
+
+RNN의 특정 Step에서 기본 학습 과정을 먼저 살펴보자.
+
+![4444](https://user-images.githubusercontent.com/59076451/123301125-423b0500-d556-11eb-85e6-34c84efc5f32.png)
+
+x_t : 입력 데이터<br>h_t-1 : 이전 시점에서 넘겨준 문맥정보<br>h_t : 이전 정보와 현재 입력 데이터를 이용한 정보<br>y^_t : h_t를 통해 얻은 해당 Step에서의 Hypothesis<br>y_t : Target Value
+
 
 
 <br>
