@@ -22,5 +22,5 @@
 
 1. RNN, LSTM, GRU 개념 정리 및 비교 `2팀`
 2. [Word2Vec](https://arxiv.org/pdf/1301.3781.pdf)  `1팀`
-3. [seq2seq](https://arxiv.org/abs/1409.3215) `2팀`
-4. [Transformer](https://arxiv.org/abs/1706.03762)  `1팀`
+3. [seq2seq](https://arxiv.org/abs/1409.3215) `1팀`
+4. [Transformer](https://arxiv.org/abs/1706.03762)  `2팀`
