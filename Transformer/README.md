@@ -190,4 +190,9 @@ input과 output 토큰들을 d_model 차원 벡터로 변환하기 위해 Embedd
 
 
 
+#### 참고 자료 
+1. https://velog.io/@changdaeoh/Transformer-%EB%85%BC%EB%AC%B8%EB%A6%AC%EB%B7%B0
+2. https://bkshin.tistory.com/entry/NLP-14-%EC%96%B4%ED%85%90%EC%85%98Attention
+
+
 
