@@ -152,5 +152,42 @@ Multi-Head Attention은 위와 같은 해상도 평활화 문제를 어느 정�
     - 즉, 1개의 큰 덩어리를 8개의 Sub-space로 나누어 Attention을 적용하는 방식으로 Resolution을 높인다.
     - 기존 재귀 모델과 다르게 Transformer는 병렬적으로 처리가 가능하므로 이또한 상당히 좋은 아이디어이다.
 
+#### Scaled Dot-Product Attention
+
+![hhhhssd](https://user-images.githubusercontent.com/59076451/125048675-2188b880-e0db-11eb-9a3e-918395140885.PNG)
+
+해당 논문은 흔히 사용되는 Attention 함수 중 dot-product attention을 사용했다. 여기서 scaling factor로써 1/sqrt(dk)가 추가 되었다.<br>
+연구진들은 dk가 커질 수록 dot product의 결과값도 커지는 경향이 있어, 결과적으로 softmax 함수에서 gradient가 매우 것을 방지하기 위해 Scaling을 진행하였다고 한다.
+
+- dq , dk, dv : Query, Key, Value의 차원
+
+
+#### Application of Attention in our Model
+
+Transformer는 multi-head attetion을 3가지 다른 방식으로 사용한다.
+
+- Encoder-Decoder attention 층에 입력되는 쿼리들은 이전 Decoder layer의 출력으로부터 오고, 키와 벨류들은 Encoder의 최종 출력에서 온다.<br> 이는 Decoder의 모든 위치에서 입력 시퀀스의 모든 위치에 접근할 수 있음을 허용한다.
+![1](https://user-images.githubusercontent.com/59076451/125050489-f606cd80-e0dc-11eb-9a89-e58b93585f4a.PNG)
+- Encoder 는 Self-attention layer를 포함한다. Self-attention layer에 입력되는 모든 key,value,query들은 하나의 시퀀스에서 온다.(이전 인코터 층의 출력)<br>따라서 각 Encoder step에서 이전의 모든 Encoding 위치에 접근할 수 있다.
+![2](https://user-images.githubusercontent.com/59076451/125050493-f69f6400-e0dc-11eb-96fe-56ee048cd003.PNG)
+
+- Decoder 내부의 Self-Attention layer는 위와 비슷하게 이전의 모든 Decoding 위치에 접근할 수 있다. <br> 다만 디코더의 Auto-gressive 성질을 보존하기 위해 Masking 기법을 추가한다.
+![3](https://user-images.githubusercontent.com/59076451/125050495-f737fa80-e0dc-11eb-9aa7-878d60859b50.PNG)
+
+
+### 3. Position-Wise Feed-Forward Networks
+
+Attention Sub-layer에 더해서, Encoder와 Decoder의 각각의 Position에 대해 독립적으로 FC feed-forward network를 포함한다. 
+이 layer는 두 번의 선형변환과 그 사이의 ReLu 활성함수를 거치도록 구성한다. 
+
+![hhhhssd](https://user-images.githubusercontent.com/59076451/125050767-40884a00-e0dd-11eb-928f-284d3f4bdf79.PNG)
+
+### 4. Embeddings and Softmax
+
+input과 output 토큰들을 d_model 차원 벡터로 변환하기 위해 Embedding을 사용한다.<br> 
+또한, decoder의 output으로 다음 Step의 represention을 예측하기위해 학습가능한 선형 변환과 softmax 활성함수를 사용하였다.<br> 
+우리는 두 임베딩 층과 softmax 이전의 선형변환에 동일한 가중치행렬을 공유하여 사용하였다. 임베딩 층들에서는 그 가중치들에 sqrt(d_ model)를 곱하여 사용하였다.
+
+
 
 
