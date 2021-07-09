@@ -103,7 +103,9 @@ a는 각 단어의 중요도를 나타내는 가중치이다. a는 0~1 사이의
 ![666](https://user-images.githubusercontent.com/59076451/125045308-d0c39080-e0d7-11eb-81f4-899a9f8b0af2.png)
 
 디코더의 LSTM 은닉 상태 벡터 h가 hs의 각 vector와 얼마나 유사한지를 찾아내는 과정이다.<br>
-이를 파악하기 위한 여러가지 방법이 있지만 가장 간단한 '내적'을 이용한다. **--- Dot-Product Attention 기법 **
+이를 파악하기 위한 여러가지 방법이 있지만 가장 간단한 '내적'을 이용한다. <br> 
+
+**Dot-Product Attention 기법 **
 벡터 내적을 통해 두 벡터가 얼마나 같은 방향을 바라보고 있는지 판단할 수 있다.
 
 ![777](https://user-images.githubusercontent.com/59076451/125045584-1da76700-e0d8-11eb-8433-7900dbf653e4.png)
