@@ -37,11 +37,11 @@ Sequential한 연산에 대한 성능을 높이는 연구는 계속 있어왔고
 
 ## Model Architecture
 
-### 1 Encoder and Decoder Stacks
+### 1. Encoder and Decoder Stacks
 
 ![111](https://user-images.githubusercontent.com/59076451/125040637-db2f5b80-e0d2-11eb-929a-abacfb661a7c.PNG)
 
-우선 Transformer는 Seq2Seq의 Encoder-Decoder 구조를 사용한다.
+우선 Transformer는 Seq2Seq의 Encoder-Decoder 구조를 사용한다. <br>
 Encoder는 입력 시퀀스의 연속적인 표현인 x1, x2, x3, ... , xn을 다른 연속적인 표현인 z1, z2, z3, ...., zn으로 Mapping한다. <br>
 이 z 를 가지고 Decoder는 출력 시퀀스인 y1, y2, y3, ... , yn을 생성한다. <br>
 각 Step에서 다음 Representation을 생성할 때, 모두 이전 정보들을 추가적인 입력으로 사용하기 때문에 Auto-Regressive하다.
@@ -60,10 +60,95 @@ Encoder와 Decoder를 각각 내부적으로 Self-Attention과 Position-Wise FC 
 동일하게 6개의 Layer를 쌓아서 구성한다. <br>
 각 Layer는 Encoder와 동일한 2개의 Sub-layer사이에 Encoder 출력에 대해 Multi-Head Self-Attention을 수행하는 Sub-layer를 추가배치한다. <br>
 또한 은닉 상태 입력단에서 Masking 기법을 사용하는데, 이는 해당 Time step를 기준으로 미래에 해당하는 정보들의 접근을 막기 위해 사용된다. <br>
-  - Masking : Decoder의 Auto-Regressive한 성질을 보존하기 위해 Leftward로의 정보흐름을 막아야한다. (해당 Step 기준으로 오른쪽 정보들의 유입)
-  - 이는 해당 시점 기준 미래 정보들을 미리 조회함에 따라 현재 단어 결정에 영향을 미칠 수 있는 위치에 해당하는 값들에 -inf 값을 주어 Softmax 연산 결과 0에 가까운 값을 갖도록 하는 방식으로 Masking을 진행한다.
+    - Masking : Decoder의 Auto-Regressive한 성질을 보존하기 위해 Leftward로의 정보흐름을 막아야한다. (해당 Step 기준으로 오른쪽 정보들의 유입)
+    - 이는 해당 시점 기준 미래 정보들을 미리 조회함에 따라 현재 단어 결정에 영향을 미칠 수 있는 위치에 해당하는 값들에 -inf 값을 주어 Softmax 연산 결과 0에 가까운 값을 갖도록 하는 방식으로 Masking을 진행한다.
+
+### 2. Attention 
+
+#### Attention ? --- 참고 (설명은 선택)
+
+문장을 번역할 때 I = 나 , Cat = 고양이와 같이 특정 단어에 Attention하여 하나씩 번역한다.
+Attention 기법이 등장하기 전까지는 이 Alignment를 수작업으로 지정해주었지만, 이제는 자동으로 Mapping이 가능하다.
+  - 단어의 대응 관계를 나타내는 정보를 Alignment라 한다.
+
+**Dot - Product Attention**
+
+![1112](https://user-images.githubusercontent.com/59076451/125043894-62320300-e0d6-11eb-981b-fbcd35c61e50.png)
+
+위 그림에 따라 설명하면 , hs는 입력된 모든 단어를 나타내는 벡터들의 집합이다.
+
+![2333](https://user-images.githubusercontent.com/59076451/125044085-96a5bf00-e0d6-11eb-9ffd-5129e4a7fe9b.png)
+
+기존의 Seq2Se2 모델은 위 그림과 같이 인코더의 마지막 은닉 상태 벡터만을 받아서 학습했다. <br> Attention 기법은 위 hs 행렬의 마지막 행이 아닌 모든 행렬을 받아오는 것으로 생각할 수 있다.<br> Attention 기법의 핵심은 특정 단어와 대응 관계가 있는 정보를 골라내는 것이다.
+
+![55455](https://user-images.githubusercontent.com/59076451/125044445-edab9400-e0d6-11eb-8755-1e4a099c4db8.png)
+
+이제 위 그림과 같이 모든 행렬을 디코더의 입력으로 넣어준다. <br>
+추가적으로 "어떤 계산" 이라는 Cell이 추가 되는데 이 부분에서 Attention의 핵심 연산이 일어난다. 즉, 특정 단어에 더 주목할 수 있도록하는 연산이다.
+
+특정 단어에 주목할 수 있도록 하는 방법은 다음과 같다. 
+
+![aa](https://user-images.githubusercontent.com/59076451/125044727-36634d00-e0d7-11eb-92f3-011462e759ac.png)
+
+a는 각 단어의 중요도를 나타내는 가중치이다. a는 0~1 사이의 값으로 구성되어있으며 아래와 같이 hs와 곱하여 가중합을 구하는데에 사용된다.
+
+![bb](https://user-images.githubusercontent.com/59076451/125044860-598dfc80-e0d7-11eb-8923-cb1aa5810d94.png)
+
+가중합이란 대응하는 원소끼리 곱한 뒤 결과를 모두 합하는 계산인데, 이에 대한 결과로 우리는 Context Vector를 얻는다. <br>
+위 그림에서 '나' 에 대한 가중치가 0.8인데 이에 결과로 나온 Context Vector는 '나' 라는 단어에 대한 정보를 더 많이 담고 있다. <br>
+  - 논문에서는 Context Vector를 Attention Value라 이름 붙이고 있다.
+
+이제 위의 가중치 합을 구하기 위해 먼저 알아야할 가중치 a를 구하는 방법이다.
+
+![666](https://user-images.githubusercontent.com/59076451/125045308-d0c39080-e0d7-11eb-81f4-899a9f8b0af2.png)
+
+디코더의 LSTM 은닉 상태 벡터 h가 hs의 각 vector와 얼마나 유사한지를 찾아내는 과정이다.<br>
+이를 파악하기 위한 여러가지 방법이 있지만 가장 간단한 '내적'을 이용한다. **--- Dot-Product Attention 기법 **
+벡터 내적을 통해 두 벡터가 얼마나 같은 방향을 바라보고 있는지 판단할 수 있다.
+
+![777](https://user-images.githubusercontent.com/59076451/125045584-1da76700-e0d8-11eb-8433-7900dbf653e4.png)
+
+벡터 내적을 통해 위와 같이 유사도를 구한다. S를 보면 첫 번째 원소 '나'에대한 유사도가 0.9로 가장 높다. <br>
+여기서 S를 Attention Score라 한다. <br> 다음으로 이 s를 0~1사이의 값으로 정규화한다.
+
+![888](https://user-images.githubusercontent.com/59076451/125045750-4d566f00-e0d8-11eb-9b6e-5474db45e46f.png)
+
+Softmax 함수를 사용하여 S를 정규화하면 가중치 a를 구할 수 있다. 
+
+![ffff](https://user-images.githubusercontent.com/59076451/125045905-7545d280-e0d8-11eb-8a60-725ae0a2f17d.png) ![jjj](https://user-images.githubusercontent.com/59076451/125045966-842c8500-e0d8-11eb-858e-d6751bd21e0f.png)
+
+이제 위 과정들을 도식화하면 위와 같다. 이 계산을 수행하는 층을 Attention layer라 한다. <br> 이 계층을 통해 인코더가 출력한 hs에서 중요한 원소에 주목하며, 이를 기반으로 Context vector를 구해 윗 단으로 올려보낸다.
+
+바로 이 부분이 위의 "어떤 계산"에 해당하는 Layer이다.
+
+### 다시 논문 
+
+![222](https://user-images.githubusercontent.com/59076451/125042647-09ae3600-e0d5-11eb-9a32-4bf2ea489e4f.PNG)
+
+Attention 기법은 Query , Key, Value들이 모두 벡터일 때, Query와 Key-Value 쌍의 집합을 출력에 Mapping하는 것<br>
+**즉, 디코더의 특정 시점에서 출력 단어를 예측할 때마다 인코더에서의 전체 입력 정보를 참고한다는 것. <br>**
+**다만 해당 시점에서 예측해야할 단어와 관련이 깊은 정보에 더 집중하도록 함.**
+
+- Q : h
+- key : hs
+- Value : a
 
 
+하지만 Transformer 논문에서는 Q , K, V를 Vector로써 매 Time Step마다 Sequential하게 사용하는 재귀 모델과는 다르게 Matrix로 Packing 하여 사용한다.
+이를 Multi-head Attention이라 부른다.
+
+위에서 Attention Weight가 상대적으로 평활화되어 해상도(Resolution)가 감소되는 문제를 이야기했고 이를 Multi-Head Attention 기법으로 해결했다고 말한다. <br>
+이에 대한 개인적인 이해는 다음과 같다.
+  - 전체 모델 Sequence는 임베딩을 통해 512차원으로 사용한다.
+  - 기존 재귀모델에서 Single Attention을 사용하여 학습하게 되면, 각 Step에서의 단어마다 Attention을 구해 가중치의 해상도가 좋다.
+  - 하지만 Transformer와 같이 Q,K,V를 행렬로 Packing하여 모든 단어에 대한 Attention을 구하게 되면, 단어마다의 Attention의 해상도는 상대적으로 평활화되게 된다.
+    - 가중치는 결국 0~1 사이의 값을 가지게 되므로, 표현하려는 영역이 넓어질수록 그 Resolution이 떨어질 것 
+  
+Multi-Head Attention은 위와 같은 해상도 평활화 문제를 어느 정도 억제해준다고 한다. 이유와 방법은 다음과 같다.
+  - 논문에서는 전체 모델 Sequence 512개를 8등분하여 각 8개의 다른 Sequence Domain에서 Attention을 진행한다.
+  - 이 후 이를 Concate하여 선형 변환을 거쳐 최종 결과를 도출한다.
+    - 즉, 1개의 큰 덩어리를 8개의 Sub-space로 나누어 Attention을 적용하는 방식으로 Resolution을 높인다.
+    - 기존 재귀 모델과 다르게 Transformer는 병렬적으로 처리가 가능하므로 이또한 상당히 좋은 아이디어이다.
 
 
 
