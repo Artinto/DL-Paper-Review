@@ -167,11 +167,15 @@ Multi-Head Attention은 위와 같은 해상도 평활화 문제를 어느 정�
 Transformer는 multi-head attetion을 3가지 다른 방식으로 사용한다.
 
 - Encoder-Decoder attention 층에 입력되는 쿼리들은 이전 Decoder layer의 출력으로부터 오고, 키와 벨류들은 Encoder의 최종 출력에서 온다.<br> 이는 Decoder의 모든 위치에서 입력 시퀀스의 모든 위치에 접근할 수 있음을 허용한다.
+- 
 ![1](https://user-images.githubusercontent.com/59076451/125050489-f606cd80-e0dc-11eb-9a89-e58b93585f4a.PNG)
+
 - Encoder 는 Self-attention layer를 포함한다. Self-attention layer에 입력되는 모든 key,value,query들은 하나의 시퀀스에서 온다.(이전 인코터 층의 출력)<br>따라서 각 Encoder step에서 이전의 모든 Encoding 위치에 접근할 수 있다.
+
 ![2](https://user-images.githubusercontent.com/59076451/125050493-f69f6400-e0dc-11eb-96fe-56ee048cd003.PNG)
 
 - Decoder 내부의 Self-Attention layer는 위와 비슷하게 이전의 모든 Decoding 위치에 접근할 수 있다. <br> 다만 디코더의 Auto-gressive 성질을 보존하기 위해 Masking 기법을 추가한다.
+
 ![3](https://user-images.githubusercontent.com/59076451/125050495-f737fa80-e0dc-11eb-9aa7-878d60859b50.PNG)
 
 
