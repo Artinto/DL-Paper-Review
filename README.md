@@ -24,3 +24,29 @@
 2. [Word2Vec](https://arxiv.org/pdf/1301.3781.pdf)  `1팀`
 3. [seq2seq](https://arxiv.org/abs/1409.3215) `1팀`
 4. [Transformer](https://arxiv.org/abs/1706.03762)  `2팀`
+
+   
+<BR>
+    
+## 하계 프로젝트 (21.08.02 ~21.09.03)
+
+`08.06` 까지 본인이 프로젝트를 진행할 레파지토리 주소를 추가해주세요!
+> 각자의 레파지토리의 readme 파일에 프로젝트 계획을 작성하기
+    
+### 필수 작성 항목 
+- 프로젝트 주제 및 목표
+- 프로젝트 상세 내용
+    - Task 및 사용할 Dataset
+    - Model
+    - 평가지표(ex. accuracy, precision, recall)
+    
+`Model 및 평가지표는 프로젝트를 진행하면서 정하셔도 됩니다.`
+    
+<br>
+    
+> 임준오(@dlawnsdh)  [repo]() <br>
+> 봉진훤(@ahn1938549) [repo]()<br>
+> 이종수(@dldnxks12) [repo]() <br>
+> 이가영(@YoungGaLee) [repo]()
+    
+    
