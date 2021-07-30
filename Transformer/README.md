@@ -193,6 +193,63 @@ input과 output 토큰들을 d_model 차원 벡터로 변환하기 위해 Embedd
 우리는 두 임베딩 층과 softmax 이전의 선형변환에 동일한 가중치행렬을 공유하여 사용하였다. 임베딩 층들에서는 그 가중치들에 sqrt(d_ model)를 곱하여 사용하였다.
 
 
+<br>
+
+
+<br>
+
+#### Why Self-Attention
+- 각각의 레이어마다 계산복잡도가 줄어든다.
+- recurrent를 없앰으로서 병렬처리가 가능하다.
+- 긴 문장에서도 잘 처리할 수 있다. 
+
+<img src = "https://user-images.githubusercontent.com/43063980/127646566-ab415ec1-4e1c-480e-a749-4e02e1dba844.png" width="80%">
+> n은 문장의 길이 / d는 representation 차원
+ 
+- 각각 layer의 효율성을 나타내고 있음. 
+- self attention이 더 계산량이 적음 (n < d) 
+- recurrent와 비교했을때 병렬적으로 한번에 처리가 가능한걸 볼 수 있음
+
+<br>
+
+<br>
+
+### 실험
+dataset
+- English-German
+    > 450만개의 문장쌍
+- English-French
+    > 3600만개의 문장쌍
+
+하드웨어 & 시간
+- 8개의 NVIDIA P100 GPUs
+- base모델 돌리는데 12시간 걸림.
+
+Optimizer
+- Adam 사용  
+(세부 파라미터 β1 = 0.9, β2 = 0.98 and e = 10−9)
+
+정규화
+- residual dropout 사용함.
+- 레이블 넣어줄 때 smoothing기법 적용함.
+
+
+<br>
+
+### 결과
+<img src = "https://user-images.githubusercontent.com/43063980/127648024-3620aab0-1a40-4672-8e14-9ab8fa7bba09.png" width="80%">
+
+- base 모델로도 기존 SOTA 넘긴걸 볼 수 있음. 이때 학습시간도 짧았음.
+- 파라미터수를 더 늘렸을 때(big)도 학습효율은 높았고, 성능은 더 좋아졌음.
+
+- 번역뿐 아니라 구문분석에서도 좋은 성능을 냄.
+
+<br>
+
+기존 모델들과 다르게 recurrent한 방식을 모두 제거하고, attention 메커니즘만 사용해서 병렬적 계산, 높은 성능개선을 가져왔다.
+기계번역뿐 아니라 다른 nlp task에서도 적용가능하다는 걸 보여준다.
+
+
 
 #### 참고 자료 
 1. https://velog.io/@changdaeoh/Transformer-%EB%85%BC%EB%AC%B8%EB%A6%AC%EB%B7%B0
