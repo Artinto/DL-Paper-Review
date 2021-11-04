@@ -102,3 +102,8 @@ QA tasks의 Test set으로 Fine-tuning한 BigBird모델의 결과
 [spare attention을 사용한 encoder-decoder의 성능]
 ![image](https://user-images.githubusercontent.com/43063980/140309373-69844112-eeb0-4286-ae4f-567da154d282.png)
 
+
+ITC ETC 차이 / global token에 대한 정의 / r,w,g 에 대한 설명 + attention 
+수식 각각의 변수들의 의미 (소문자 X) + 적어주기 
+x [i:j] 
+
