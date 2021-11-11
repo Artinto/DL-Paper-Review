@@ -59,14 +59,21 @@ self attention과 Transformer가 좋은 것은 알겠으나
  
 
 ![image](https://user-images.githubusercontent.com/43063980/140293008-42fb1972-4a03-4024-a55b-2b81f1938e43.png)
-- random attention : query가 랜덤한 r개의 key에 attend
-- window attention : 이웃한 토큰에만 attend
-     > 언어가 인접한 단어에 가장 큰 영향을 받는 점을 모델링한 부분 >> 더 논리적인 부분있었으면 좋았을 듯.
-- **global attention** : 시퀀스의 모든 부분에 attend
+- random attention : query와 r개의 랜덤 key 간의 attention
+- window attention : query 양옆 w개의 key와 attention
+     > 언어가 인접한 단어에 가장 큰 영향을 받는 점을 모델링한 부분
+- **global attention** : query와 g개의 global token과 attention
      > global token : 시퀀스의 모든 token에 attend하고 모든 token으로부터 attend받는 token set
          
-     > global token에 따라서 Big bird-itc / Big bird-etc로 구분된다.     
+     > global token에 따라서 Big bird-itc / Big bird-etc로 구분된다.    
+     
+     > internal transformer construction (ITC) : 기존의 token 중 일부를 global token으로 만든다.    
+     > extended transformer construction (ETC) : CLS 같이 별도의 token을 도입하여 그 token들을 global token으로 만든다.  
+       
      > Big bird-etc의 경우, 현재 HotpotQA 데이터셋에서 SOTA이다. 
+
+![image](https://user-images.githubusercontent.com/43063980/141291827-a4a4b1eb-bf43-481d-b92c-06779a756805.png)
+
 
  
 <br>
@@ -87,7 +94,19 @@ BIGBird는 Turing complete하는 성능을 보인다.
 > (위) BigBird Attention 수식 - 시간복잡도 O    
 > (아래) 기존 Transformer Attention 수식 - 시간복잡도 O^2
 
-<img src="https://user-images.githubusercontent.com/43063980/140307261-cbe460d8-8d98-4a82-826d-aebedbcf3010.png" width = "30%">
+<br>
+
+<img src="https://user-images.githubusercontent.com/43063980/141293100-a968dd43-1367-4706-b204-7ff40db16cf6.png" width = "70%">
+Ni는 node i 가 가리키는 node (ex. global token, 근거로, 비과세, 하나로, 한다)    
+
+Xi는 토큰 임베딩 (ex. 세뱃돈은)
+
+<img src="https://user-images.githubusercontent.com/43063980/141293836-61639975-c5f2-4dcb-b4e6-b586692a4f0c.png" width = "60%">
+
+Qh, Kh : 쿼리, 키 함수
+
+Vh : value 함수
+
 
 
 ### ◼ Experiments
