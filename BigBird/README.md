@@ -62,8 +62,8 @@ self attention과 Transformer가 좋은 것은 알겠으나
 - random attention : query와 r개의 랜덤 key 간의 attention
 - window attention : query 양옆 w개의 key와 attention
      > 언어가 인접한 단어에 가장 큰 영향을 받는 점을 모델링한 부분
-- **global attention** : query와 g개의 global token과 attention
-     > global token : 시퀀스의 모든 token에 attend하고 모든 token으로부터 attend받는 token set
+- **global attention** : query와 g개의 global token과 attention. 멀리 떨어져있는 토큰들에 대해서 연관성을 반영해준다.
+     > global token : 시퀀스의 모든 token에 attend하고 모든 token으로부터 attend받는 token set이며 기존 self attention의 성능을 끌어내는 가장 중요한 부분. 
          
      > global token에 따라서 Big bird-itc / Big bird-etc로 구분된다.    
      
