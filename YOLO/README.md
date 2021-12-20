@@ -35,6 +35,10 @@
 </details>
 
 
+
+
+
+
 ## Abstract
 - (2-stage detector 였던 RCNN과는 다르게) 단일신경망으로 bounding box와 class의 확률을 예측한다.
 - 파이프라인 네트워크없이 end-to-end학습이 가능하다.  
@@ -127,3 +131,6 @@ C = classes : 20 (PASCAL VOC dataset)
 
 ### 다른 도메인에서 성능비교 
 ![image](https://user-images.githubusercontent.com/43063980/146763534-9cd35ed7-f4f2-419e-9648-5d3304c12e47.png)
+
+confidence score , mulit loss
+YOLO network 동작방식(출력위주로)
