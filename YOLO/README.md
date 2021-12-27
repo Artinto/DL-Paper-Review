@@ -139,12 +139,6 @@ classification과 localization이 얼마나 잘 되는지 나타내는 점수이
  
  <br>
  
-### Loss function
-- classification loss : class conditional probabilities의 squared error
-- localization loss : 예측된 boundary box의 위치와 크기에 대한 error
-- confidence loss : 객체 탐지 여부에 따라 가중치를 다르게 준다.
-![image](https://user-images.githubusercontent.com/43063980/147471765-d7405d30-2ee4-4fae-aa0f-79f80d205a8d.png)
-
 
 ### 2-1. 네트워크 구조
 ![image](https://user-images.githubusercontent.com/43063980/146762642-d28325b9-c61e-4bb4-a890-9d4078612f1d.png)
@@ -153,7 +147,14 @@ classification과 localization이 얼마나 잘 되는지 나타내는 점수이
 <br>
 
 ### 2-2.Training
- Multi Loss 사용
+
+ 
+### Loss function
+- classification loss : class conditional probabilities의 squared error
+- localization loss : 예측된 boundary box의 위치와 크기에 대한 error
+- confidence loss : 객체 탐지 여부에 따라 가중치를 다르게 준다.
+![image](https://user-images.githubusercontent.com/43063980/147471765-d7405d30-2ee4-4fae-aa0f-79f80d205a8d.png)
+
  
  
 ### 2.4  YOLO의 한계
