@@ -98,11 +98,51 @@
 - end-to-end 방식으로 하나의 convolution network를 거쳐서 마지막 feature_map에서 bounding box와 class를 예측한다.
 - 모델의  최종 feature map은 7 x 7 x 30의 사이즈이며, 하나의 feature map을 49개의 grid cell로 보고 각 grid cell에서 2개의 bounding box와 class를 예측을 하게 된다.
 
-- 7 x 7 x 30 == S x S x (5 x B + C)  
-  > S = feature size : 7  
-5 = (cx, cy, w, h, confidence)  
-B = number of boxes : 2  
-C = classes : 20 (PASCAL VOC dataset)  
+ <img src = "https://user-images.githubusercontent.com/43063980/147468211-5a2b88bf-7d80-4e36-810b-c4085371150a.png" width="60%">
+ 
+- S x S x (5 x B + C)
+     > S x S : 각 grid 당    
+     > B개의 bounding box를 (5개 / x,y,w,h,confidence score) 출력    
+     > class : 20개 (C : 각 class에 대한 probability)     
+
+<br>
+
+<br>
+
+<br>
+
+
+◼ **confidence score 구하기**     
+ <img src = "https://user-images.githubusercontent.com/43063980/147468852-1326a771-a165-4d04-8a71-888deeadd61b.png" width="20%">
+ 
+ bounding box (x, y, w, h, **confidence score**)
+ 
+ - 예측된 상자와 실제 box와의 IoU(bbox가 실제로 얼마나 겹치는지) 값 계산
+
+ 
+ <br>
+ 
+ <br>
+ 
+ ◼ **Conditional class probabilities**    
+ <img src = "https://user-images.githubusercontent.com/43063980/147469961-1a344b2e-a1ed-49d9-bb7e-721921d62ac9.png" width="20%">      
+S x S x (5 x B + **C**)    
+- 각각의 grid cell은 C개의 conditional class probability를 갖는다.
+- 각 물체(class)에 대한 probability를 의미하며
+- grid cell의 object가 각 class로 예측될 확률 
+
+
+
+ ◼ class-specific confidence score
+confidence score * Conditional class probabilities을 해서 구하는 값으로
+classification과 localization이 얼마나 잘 되는지 나타내는 점수이다. 
+
+### Loss function
+- classification loss : class conditional probabilities의 squared error
+- localization loss : 예측된 boundary box의 위치와 크기에 대한 error
+- confidence loss : 객체 탐지 여부에 따라 가중치를 다르게 준다.
+![image](https://user-images.githubusercontent.com/43063980/147471765-d7405d30-2ee4-4fae-aa0f-79f80d205a8d.png)
+
 
 ### 2-1. 네트워크 구조
 ![image](https://user-images.githubusercontent.com/43063980/146762642-d28325b9-c61e-4bb4-a890-9d4078612f1d.png)
