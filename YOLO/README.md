@@ -133,10 +133,12 @@ S x S x (5 x B + **C**)
 
 
 
- ◼ class-specific confidence score
-confidence score * Conditional class probabilities을 해서 구하는 값으로
-classification과 localization이 얼마나 잘 되는지 나타내는 점수이다. 
-
+ ◼ class-specific confidence score    
+confidence score * Conditional class probabilities을 해서 구하는 값으로    
+classification과 localization이 얼마나 잘 되는지 나타내는 점수이다.     
+ 
+ <br>
+ 
 ### Loss function
 - classification loss : class conditional probabilities의 squared error
 - localization loss : 예측된 boundary box의 위치와 크기에 대한 error
