@@ -47,7 +47,7 @@
     
 > 임준오([@dlawnsdh](https://github.com/dlawnsdh))  [repo](https://github.com/dlawnsdh/test/blob/main/README.md) <br>
 > 봉진훤([@ahn1938549](https://github.com/ahn1938549))<br>  
-> 이종수([@dldnxks12](https://github.com/dldnxks12)) [repo](https://github.com/dldnxks12/A.I/blob/37cd15f929be67c2350b9c4fc506268cdb5f7bc6/Project2/README.md) <br>
+> 이종수([@dldnxks12](https://github.com/dldnxks12))  <br>
 > 이가영([@YoungGaLee](https://github.com/YoungGaLee))   [repo](https://github.com/YoungGaLee/2021_summer_project/blob/main/README.md)
     
     
